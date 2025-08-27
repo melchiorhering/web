@@ -1,0 +1,142 @@
+---
+import type { Image } from "@/config/landing.interface";
+
+interface Props {
+  images: Image[];
+}
+
+const { images }: Props = Astro.props;
+---
+
+<div class="py-24 relative">
+  <div class="mx-auto max-w-7xl px-4 sm:px-5 lg:px-6">
+    <div class="mb-16">
+      <h2
+        class="w-full text-center text-gray-900 text-4xl font-bold leading-normal pb-2.5">
+        Our Gallery
+      </h2>
+      <p class="w-full text-center text-gray-600 text-lg font-normal leading-8">
+        Explore the essence of beauty in our gallery's intimate space.
+      </p>
+    </div>
+
+    <astro-gallery data-images={JSON.stringify(images)}>
+      <div class="flex flex-col gap-8 mx-auto">
+        <!-- Main Image Display -->
+        <div class="w-full gallery grid grid-cols-1 gap-4">
+          {
+            images.map((image, index) => (
+              <img
+                src={image.src}
+                alt={image.alt}
+                class="gallery-image w-full h-auto rounded-3xl object-cover cursor-pointer"
+                data-index={index.toString()}
+              />
+            ))
+          }
+        </div>
+
+        <!-- Thumbnails -->
+        <div class="flex gap-4 overflow-auto">
+          {
+            images.map((image, index) => (
+              <img
+                src={image.src}
+                alt={image.alt}
+                class="w-24 h-24 rounded-xl border-2 border-gray-200 object-cover cursor-pointer hover:border-indigo-600"
+                data-index={index.toString()}
+              />
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- Lightbox -->
+      <div
+        id="lightbox"
+        class="lightbox hidden fixed inset-0 z-50 bg-black bg-opacity-80 flex items-center justify-center">
+        <span
+          id="close"
+          class="close text-white text-3xl absolute top-5 right-5 cursor-pointer"
+          >&times;</span
+        >
+        <div>
+          <img
+            id="lightbox-image"
+            src=""
+            alt=""
+            class="lightbox-image max-w-full max-h-screen"
+          />
+          <p id="lightbox-description" class="text-center text-white mt-4"></p>
+        </div>
+      </div>
+    </astro-gallery>
+  </div>
+
+  <script>
+    class AstroGallery extends HTMLElement {
+      connectedCallback() {
+        const images: { src: string; alt: string; description?: string }[] =
+          JSON.parse(this.dataset.images || "[]");
+        const galleryImages =
+          this.querySelectorAll<HTMLImageElement>(".gallery-image");
+        const thumbnails = this.querySelectorAll<HTMLImageElement>(".flex img");
+        const lightbox = this.querySelector<HTMLElement>("#lightbox");
+        const lightboxImage =
+          this.querySelector<HTMLImageElement>("#lightbox-image");
+        const lightboxDescription = this.querySelector<HTMLElement>(
+          "#lightbox-description"
+        );
+        const closeButton = this.querySelector<HTMLElement>("#close");
+
+        if (
+          !lightbox ||
+          !lightboxImage ||
+          !lightboxDescription ||
+          !closeButton
+        ) {
+          console.error("Required DOM elements for the gallery are missing.");
+          return;
+        }
+
+        const openLightbox = (index: number) => {
+          const image = images[index];
+          if (!image) return;
+
+          lightboxImage.src = image.src;
+          lightboxImage.alt = image.alt;
+          lightboxDescription.textContent = image.description || "";
+          lightbox.classList.remove("hidden");
+        };
+
+        galleryImages.forEach((img) => {
+          img.addEventListener("click", (e) => {
+            const target = e.target as HTMLImageElement;
+            const index = parseInt(target.dataset.index || "", 10);
+            if (!isNaN(index)) openLightbox(index);
+          });
+        });
+
+        thumbnails.forEach((thumb) => {
+          thumb.addEventListener("click", (e) => {
+            const target = e.target as HTMLImageElement;
+            const index = parseInt(target.dataset.index || "", 10);
+            if (!isNaN(index)) openLightbox(index);
+          });
+        });
+
+        closeButton.addEventListener("click", () => {
+          lightbox.classList.add("hidden");
+        });
+
+        lightbox.addEventListener("click", (e) => {
+          if (e.target === lightbox) {
+            lightbox.classList.add("hidden");
+          }
+        });
+      }
+    }
+
+    customElements.define("astro-gallery", AstroGallery);
+  </script>
+</div>

@@ -1,0 +1,40 @@
+/* src/styles/global.css */
+@import "tailwindcss";
+
+/* 2. Define your custom color palette and other global styles using a :root selector. */
+@layer base {
+  :root {
+    /* Brand Colors */
+    --color-primary: rgba(25 107 1);
+    --color-secondary: rgba(23 23 23);
+    --color-accent: rgba(34 197 94);
+
+    /* Text Colors */
+    --color-text-base: rgba(23 23 23);
+    --color-text-muted: rgba(115 115 115);
+    --color-text-inverted: rgba(250 250 250);
+
+    /* Background Colors */
+    --color-fill: rgba(250 250 250);
+    --color-fill-muted: rgba(245 245 245);
+
+    /* Add more variables as needed: fonts, spacing, etc. */
+    --font-family-sans: "Inter", sans-serif;
+    --font-family-serif: "Lora", serif;
+  }
+
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+    font-family: var(--font-family-sans);
+    color: var(--color-text-base);
+    background-color: var(--color-fill);
+  }
+}
+
+.hidden {
+  display: none;
+}

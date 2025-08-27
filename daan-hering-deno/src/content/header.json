@@ -1,0 +1,11 @@
+{
+  "logo": "Timmerman",
+  "logoImage": "favicon.jpeg",
+  "menuIcon": "ToolboxIcon",
+  "links": [
+    { "label": "About", "href": "#" },
+    { "label": "Services", "href": "#" },
+    { "label": "Prices", "href": "#" },
+    { "label": "FAQs", "href": "#" }
+  ]
+}

@@ -1,9 +1,9 @@
-*
 
 # Directories
-!daan-hering/
+# !daan-hering/
 
-
+daan-hering-deno/
+daan-hering-old/
 
 # Files
-!.gitignore
+.gitignore

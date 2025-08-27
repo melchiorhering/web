@@ -1,0 +1,24 @@
+{
+  "title": "Timmerman | Daan Hering",
+  "description": "Daan Hering is een timmerman en kunstenaar die zich specialiseert in het maken van meubels, inbouwkasten, deuren en kunstwerken van hout. Ontdek zijn unieke creaties en neem contact op voor een op maat gemaakt stuk.",
+  "lang": "nl",
+  "charset": "UTF-8",
+  "ldJson": {
+    "@context": "http://schema.org",
+    "@type": "Organization",
+    "name": "Timmerman | Daan Hering",
+    "description": "Daan Hering is een timmerman en kunstenaar die zich specialiseert in het maken van meubels, inbouwkasten, deuren en kunstwerken van hout. Ontdek zijn unieke creaties en neem contact op voor een op maat gemaakt stuk.",
+    "url": "https://daan-hering.nl",
+    "logo": "favicon.jpeg",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "email": "timmerman@daanhering.nl",
+      "contactType": "Client Service"
+    },
+    "sameAs": [
+      "https://www.twitter.com/yourpage",
+      "https://www.instagram.com/yourpage",
+      "https://www.linkedin.com/company/yourpage"
+    ]
+  }
+}
