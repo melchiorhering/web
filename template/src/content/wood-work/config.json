@@ -1,0 +1,14 @@
+{
+  "title": "Work",
+  "cover": {
+    "src": "./bauhaus-scribble.webp",
+    "alt": "bauhaus-scribble image"
+  },
+  "entries": [
+    {
+      "title": "Workshop Wood",
+      "alt": "Some wood in Daans workshop",
+      "cover": "./images/dscf3157.webp"
+    }
+  ]
+}

@@ -1,0 +1,231 @@
+---
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+// Array of different height classes for the masonry layout
+const masonryHeightClasses = ["h-64", "h-80", "h-96"];
+
+const { variant = "grid", entries } = Astro.props;
+---
+
+<div
+    id="lightbox"
+    class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 opacity-0 invisible transition-opacity duration-300"
+>
+    <button
+        id="lightbox-close"
+        class="absolute top-4 right-4 rounded-full bg-slate-500/50 p-2 text-white transition hover:bg-slate-500 cursor-pointer"
+    >
+        <Icon name="mdi:close" class="h-8 w-8" />
+    </button>
+    <button
+        id="lightbox-prev"
+        class="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-slate-500/50 p-2 text-white transition hover:bg-slate-500 cursor-pointer"
+    >
+        <Icon name="mdi:chevron-left" class="h-8 w-8" />
+    </button>
+    <button
+        id="lightbox-next"
+        class="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-slate-500/50 p-2 text-white transition hover:bg-slate-500 cursor-pointer"
+    >
+        <Icon name="mdi:chevron-right" class="h-8 w-8" />
+    </button>
+    <img
+        id="lightbox-image"
+        src=""
+        alt=""
+        class="max-h-[90%] max-w-[90%] rounded-md shadow-2xl"
+    />
+</div>
+
+{
+    variant === "grid" && (
+        <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {entries.map((item, index) => (
+                <div
+                    class="group transform cursor-pointer transition duration-300 hover:scale-105"
+                    data-image-src={item.cover.src}
+                    data-image-alt={item.alt}
+                    data-index={index}
+                >
+                    <div class="rounded-lg bg-white p-4 pb-6 shadow-lg">
+                        <Image
+                            src={item.cover}
+                            alt={item.alt}
+                            class="h-80 w-full object-cover"
+                        />
+                        <h2 class="mt-4 text-center text-lg font-semibold text-gray-800">
+                            {item.title}
+                        </h2>
+                    </div>
+                </div>
+            ))}
+        </div>
+    )
+}
+
+{
+    variant === "masonry" && (
+        <div class="columns-1 gap-4 space-y-4 md:columns-2 lg:columns-3">
+            {entries.map((item, index: number) => {
+                const heightClass =
+                    masonryHeightClasses[index % masonryHeightClasses.length];
+                return (
+                    <div
+                        class="break-inside-avoid cursor-pointer"
+                        data-image-src={item.cover.src}
+                        data-image-alt={item.alt}
+                        data-index={index}
+                    >
+                        <Image
+                            src={item.cover}
+                            alt={item.alt}
+                            class:list={[
+                                "w-full rounded-lg shadow-lg object-cover",
+                                heightClass,
+                            ]}
+                        />
+                        <!-- <h2 class="mt-4 text-center text-xl font-semibold">
+                            {item.title}
+                        </h2> -->
+                    </div>
+                );
+            })}
+        </div>
+    )
+}
+
+{
+    variant === "showcase" && (
+        <div class="space-y-24 md:space-y-32 p-4">
+            {entries.map((item, index: number) => (
+                <div class="grid grid-cols-1">
+                    <div
+                        class="cursor-pointer"
+                        data-image-src={item.cover.src}
+                        data-image-alt={item.alt}
+                        data-index={index}
+                    >
+                        <Image src={item.cover} alt={item.alt} class="w-full" />
+                    </div>
+                    <div class="container mx-auto px-8 py-16 text-center">
+                        <h2 class="text-3xl font-bold">{item.title}</h2>
+                        <p class="mt-4 max-w-2xl mx-auto text-text-muted">
+                            {item.alt}
+                        </p>
+                    </div>
+                </div>
+            ))}
+        </div>
+    )
+}
+
+{
+    variant === "collage" && (
+        <div class="grid grid-cols-1 gap-16 md:grid-cols-2 lg:grid-cols-3">
+            {entries.map((item, index: number) => (
+                <div
+                    class="relative h-96 cursor-pointer"
+                    data-image-src={item.cover.src}
+                    data-image-alt={item.alt}
+                    data-index={index}
+                >
+                    <Image
+                        src={item.cover}
+                        alt={item.alt}
+                        class:list={[
+                            "absolute w-full h-full object-cover rounded-lg shadow-xl transition-transform duration-300 group-hover:scale-105",
+                            { "rotate-2": index % 3 === 0 },
+                            { "-rotate-3": index % 3 === 1 },
+                            { "rotate-1 top-4": index % 3 === 2 },
+                        ]}
+                    />
+                </div>
+            ))}
+        </div>
+    )
+}
+
+<script>
+    // Lightbox elements
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImage = document.getElementById("lightbox-image");
+    const lightboxClose = document.getElementById("lightbox-close");
+    const lightboxPrev = document.getElementById("lightbox-prev");
+    const lightboxNext = document.getElementById("lightbox-next");
+
+    // Gallery items
+    const galleryItems = document.querySelectorAll("[data-index]");
+    // Create an array of image data from the DOM
+    const images = Array.from(galleryItems).map((item) => ({
+        src: item.getAttribute("data-image-src"),
+        alt: item.getAttribute("data-image-alt"),
+    }));
+
+    let currentIndex = 0;
+
+    function showImage(index) {
+        if (!lightbox || !lightboxImage) return;
+
+        const image = images[index];
+        if (!image) return;
+
+        lightboxImage.src = image.src;
+        lightboxImage.alt = image.alt;
+        currentIndex = index;
+    }
+
+    function openLightbox(index) {
+        if (!lightbox) return;
+        showImage(index);
+        lightbox.classList.remove("invisible", "opacity-0");
+        document.body.style.overflow = "hidden";
+    }
+
+    function closeLightbox() {
+        if (!lightbox) return;
+        lightbox.classList.add("invisible", "opacity-0");
+        document.body.style.overflow = "";
+    }
+
+    function showNextImage() {
+        const nextIndex = (currentIndex + 1) % images.length;
+        showImage(nextIndex);
+    }
+
+    function showPrevImage() {
+        const prevIndex = (currentIndex - 1 + images.length) % images.length;
+        showImage(prevIndex);
+    }
+
+    // Add click listeners to gallery items
+    galleryItems.forEach((item) => {
+        item.addEventListener("click", () => {
+            const index = parseInt(item.getAttribute("data-index"), 10);
+            openLightbox(index);
+        });
+    });
+
+    // Add listeners for lightbox controls
+    lightboxClose?.addEventListener("click", closeLightbox);
+    lightboxPrev?.addEventListener("click", showPrevImage);
+    lightboxNext?.addEventListener("click", showNextImage);
+
+    lightbox?.addEventListener("click", (e) => {
+        if (e.target === lightbox) {
+            closeLightbox();
+        }
+    });
+
+    // Add keyboard navigation
+    document.addEventListener("keydown", (e) => {
+        if (lightbox.classList.contains("invisible")) return;
+
+        if (e.key === "ArrowRight") {
+            showNextImage();
+        } else if (e.key === "ArrowLeft") {
+            showPrevImage();
+        } else if (e.key === "Escape") {
+            closeLightbox();
+        }
+    });
+</script>

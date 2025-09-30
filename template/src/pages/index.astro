@@ -1,0 +1,14 @@
+---
+// src/pages/index.astro
+import Layout from "../layouts/Layout.astro";
+import HeroSection from "../sections/Hero.astro";
+import WorkSection from "../sections/Work.astro";
+
+const pageTitle = "Home";
+const pageDescription = "Welcome to my awesome website built with Astro!";
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+    <HeroSection />
+    <WorkSection variant="masonry" />
+</Layout>

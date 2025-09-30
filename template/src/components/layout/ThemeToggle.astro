@@ -1,0 +1,61 @@
+---
+// src/components/layout/ThemeToggle.astro
+import { Icon } from "astro-icon/components";
+---
+
+<button
+    id="theme-toggle"
+    class="relative h-10 w-10 transition"
+    aria-label="Toggle dark mode"
+>
+    <span class="sr-only">Toggle dark mode</span>
+
+    <Icon
+        name="solar:sun-bold-duotone"
+        class="sun-icon h-full w-full p-2.5 text-amber-600"
+    />
+
+    <Icon
+        name="solar:moon-bold-duotone"
+        class="moon-icon h-full w-full p-2.5 text-gray-300"
+    />
+</button>
+
+<script>
+    const themeToggle = document.getElementById("theme-toggle");
+    const sunIcon = document.querySelector(".sun-icon");
+    const moonIcon = document.querySelector(".moon-icon");
+
+    // This function updates which icon is visible
+    function updateIcons() {
+        const isDark =
+            document.documentElement.getAttribute("data-theme") === "dark";
+        if (isDark) {
+            sunIcon.style.display = "none";
+            moonIcon.style.display = "block";
+        } else {
+            sunIcon.style.display = "block";
+            moonIcon.style.display = "none";
+        }
+    }
+
+    // Run the function when the button is clicked
+    themeToggle?.addEventListener("click", () => {
+        const isDark =
+            document.documentElement.getAttribute("data-theme") === "dark";
+
+        if (isDark) {
+            document.documentElement.removeAttribute("data-theme");
+            localStorage.setItem("theme", "light");
+        } else {
+            document.documentElement.setAttribute("data-theme", "dark");
+            localStorage.setItem("theme", "dark");
+        }
+
+        // After changing the theme, update the icons
+        updateIcons();
+    });
+
+    // Run the function once on page load to set the initial icon
+    updateIcons();
+</script>

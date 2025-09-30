@@ -1,0 +1,68 @@
+---
+interface Props {
+    id?: string; // NEW: Prop for the anchor link
+    text?: string;
+    subheader?: string;
+    subheaderPosition?: "top-left" | "top-right";
+    bgColor?: string;
+    textColor?: string;
+    subheaderBgColor?: string;
+    subheaderTextColor?: string;
+    fontSize?: string;
+    height?: string;
+    class?: string;
+}
+
+const {
+    id,
+    text = "WORK",
+    subheader,
+    subheaderPosition = "top-left",
+    bgColor = "bg-primary",
+    textColor = "text-white",
+    subheaderBgColor = "bg-white",
+    subheaderTextColor = "text-primary",
+    fontSize = "text-8xl md:text-7xl",
+    height = "h-38 md:h-42",
+    class: className,
+} = Astro.props;
+
+const positionClasses = {
+    "top-left": "top-0 left-0",
+    "top-right": "top-0 right-0",
+};
+---
+
+<div
+    id={id}
+    class:list={[
+        "relative flex w-full items-center justify-center rounded-bl-[100px] rounded-tr-[100px]",
+        bgColor,
+        height,
+        className,
+    ]}
+>
+    {
+        subheader && (
+            <div
+                class:list={[
+                    "absolute flex items-center justify-center p-4 md:p-6",
+                    subheaderBgColor,
+                    positionClasses[subheaderPosition],
+                ]}
+            >
+                <span
+                    class:list={[
+                        "font-bold uppercase text-lg md:text-xl",
+                        subheaderTextColor,
+                    ]}
+                >
+                    {subheader}
+                </span>
+            </div>
+        )
+    }
+    <span class:list={["font-extrabold uppercase", fontSize, textColor]}>
+        {text}
+    </span>
+</div>

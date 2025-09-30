@@ -1,0 +1,41 @@
+{
+  "title": "Custom Woodwork, <br /> Built to Last.",
+  "subtitle": "From bespoke furniture to unique handcrafted pieces, we bring your vision to life with passion and precision.",
+  "button": {
+    "text": "Get a Quote",
+    "href": "/contact"
+  },
+  "heroImage": {
+    "src": "./images/hero-image.webp",
+    "alt": "A beautifully crafted wooden piece of furniture"
+  },
+  "bauhausPipes": [
+    { "length": "80px", "colorIndex": 0 },
+    { "length": "160px", "colorIndex": 1 },
+    { "length": "230px", "colorIndex": 2 },
+    { "length": "200px", "colorIndex": 0 },
+    { "length": "280px", "colorIndex": 2 },
+    { "length": "260px", "colorIndex": 1 },
+    { "length": "200px", "colorIndex": 0 },
+    { "length": "180px", "colorIndex": 2 },
+    { "length": "250px", "colorIndex": 1 },
+    { "length": "290px", "colorIndex": 2 },
+    { "length": "310px", "colorIndex": 1 },
+    { "length": "330px", "colorIndex": 0 },
+    { "length": "300px", "colorIndex": 2 },
+    { "length": "360px", "colorIndex": 1 },
+    { "length": "160px", "colorIndex": 1 },
+    { "length": "330px", "colorIndex": 2 },
+    { "length": "280px", "colorIndex": 0 },
+    { "length": "290px", "colorIndex": 2 },
+    { "length": "310px", "colorIndex": 1 },
+    { "length": "330px", "colorIndex": 0 },
+    { "length": "300px", "colorIndex": 2 },
+    { "length": "280px", "colorIndex": 1 },
+    { "length": "260px", "colorIndex": 2 },
+    { "length": "420px", "colorIndex": 0 },
+    { "length": "400px", "colorIndex": 1 },
+    { "length": "380px", "colorIndex": 2 },
+    { "length": "340px", "colorIndex": 0 }
+  ]
+}
