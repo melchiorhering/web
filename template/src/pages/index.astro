@@ -9,6 +9,8 @@ const pageDescription = "Welcome to my awesome website built with Astro!";
 ---
 
 <Layout title={pageTitle} description={pageDescription}>
-    <HeroSection />
-    <WorkSection variant="masonry" />
+    <div class="space-y-8">
+        <HeroSection />
+        <WorkSection />
+    </div>
 </Layout>

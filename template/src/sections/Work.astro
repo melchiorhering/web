@@ -1,13 +1,8 @@
 ---
 import { getEntry } from "astro:content";
 import TitleHeader from "../components/ui/TitleHeader.astro";
-import Gallery from "../components/Gallery.astro";
+import MasonryGallery from "../components/MasonryGallery.astro";
 import { Image } from "astro:assets";
-
-interface Props {
-    variant?: "grid" | "masonry" | "showcase" | "collage";
-}
-const { variant } = Astro.props;
 
 const galleryData = await getEntry("wood-work", "config");
 const title = galleryData.data.title;
@@ -15,27 +10,25 @@ const entries = galleryData.data.entries;
 const cover = galleryData.data.cover;
 ---
 
-<section class="relative mx-auto h-screen w-full px-4 py-12">
+<section class="relative mx-auto h-screen w-full px-4 md:px-12 space-y-8">
     <TitleHeader text={title} subheader="01" />
-    <!-- <TextCutoutDivider
-        text={title}
-        bgColor="bg-secondary"
-        textFillColor="#E5E7EB"
-        textColor="text-text-base"
-        fontSize="text-5xl md:text-6xl lg:text-7xl"
-        height="h-40 md:h-48"
-        class="my-16"
-    /> -->
 
-    <div class="relative z-10 pt-8">
-        <Gallery {variant} {entries} />
+    <div class="relative z-10">
+        <MasonryGallery
+            entries={entries}
+            gap={6}
+            cols={3}
+            colsSm={2}
+            colsMd={3}
+            colsLg={4}
+        />
     </div>
 
     <div class="absolute right-0 top-0 h-full">
         <Image
             src={cover.src}
             alt={cover.alt}
-            class="h-full w-full object-cover opacity-20"
+            class="h-full w-full object-cover opacity-10"
         />
     </div>
 </section>

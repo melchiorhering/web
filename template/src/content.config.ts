@@ -33,9 +33,8 @@ const woodWork = defineCollection({
       // The existing entries array
       entries: z.array(
         z.object({
-          title: z.string(),
           alt: z.string(),
-          cover: image(),
+          image: image(),
         }),
       ),
     }),

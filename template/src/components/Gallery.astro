@@ -1,8 +1,12 @@
 ---
 import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
-// Array of different height classes for the masonry layout
+
+// --- Config for Variants ---
+// Re-added for the "scrapbook" variant to work
 const masonryHeightClasses = ["h-64", "h-80", "h-96"];
+// Array of rotation classes for the scrapbook effect
+const rotationClasses = ["rotate-2", "-rotate-1", "rotate-1", "-rotate-2"];
 
 const { variant = "grid", entries } = Astro.props;
 ---
@@ -11,21 +15,22 @@ const { variant = "grid", entries } = Astro.props;
     id="lightbox"
     class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 opacity-0 invisible transition-opacity duration-300"
 >
+    {/* Lightbox content remains the same */}
     <button
         id="lightbox-close"
-        class="absolute top-4 right-4 rounded-full bg-slate-500/50 p-2 text-white transition hover:bg-slate-500 cursor-pointer"
+        class="absolute right-4 top-4 z-10 cursor-pointer rounded-full bg-slate-500/50 p-2 text-white transition hover:bg-slate-500"
     >
         <Icon name="mdi:close" class="h-8 w-8" />
     </button>
     <button
         id="lightbox-prev"
-        class="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-slate-500/50 p-2 text-white transition hover:bg-slate-500 cursor-pointer"
+        class="absolute left-4 top-1/2 -translate-y-1/2 z-10 cursor-pointer rounded-full bg-slate-500/50 p-2 text-white transition hover:bg-slate-500"
     >
         <Icon name="mdi:chevron-left" class="h-8 w-8" />
     </button>
     <button
         id="lightbox-next"
-        class="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-slate-500/50 p-2 text-white transition hover:bg-slate-500 cursor-pointer"
+        class="absolute right-4 top-1/2 -translate-y-1/2 z-10 cursor-pointer rounded-full bg-slate-500/50 p-2 text-white transition hover:bg-slate-500"
     >
         <Icon name="mdi:chevron-right" class="h-8 w-8" />
     </button>
@@ -40,16 +45,16 @@ const { variant = "grid", entries } = Astro.props;
 {
     variant === "grid" && (
         <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {entries.map((item, index) => (
+            {entries.map((item, index: number) => (
                 <div
                     class="group transform cursor-pointer transition duration-300 hover:scale-105"
-                    data-image-src={item.cover.src}
+                    data-image-src={item.image}
                     data-image-alt={item.alt}
                     data-index={index}
                 >
                     <div class="rounded-lg bg-white p-4 pb-6 shadow-lg">
                         <Image
-                            src={item.cover}
+                            src={item.image}
                             alt={item.alt}
                             class="h-80 w-full object-cover"
                         />
@@ -64,32 +69,60 @@ const { variant = "grid", entries } = Astro.props;
 }
 
 {
-    variant === "masonry" && (
-        <div class="columns-1 gap-4 space-y-4 md:columns-2 lg:columns-3">
+    variant === "scrapbook" && (
+        <div class="columns-1 gap-3 space-y-3 p-4 md:columns-2 lg:columns-3 xl:columns-4">
             {entries.map((item, index: number) => {
+                // FIX: heightClass was missing its definition. It is now defined here.
                 const heightClass =
                     masonryHeightClasses[index % masonryHeightClasses.length];
+                const rotationClass =
+                    rotationClasses[index % rotationClasses.length];
                 return (
                     <div
-                        class="break-inside-avoid cursor-pointer"
-                        data-image-src={item.cover.src}
+                        class:list={[
+                            "group relative break-inside-avoid cursor-pointer bg-white p-2 shadow-lg transition duration-300 ease-in-out hover:z-10 hover:scale-105 hover:!rotate-0",
+                            rotationClass,
+                        ]}
+                        data-image-src={item.image}
                         data-image-alt={item.alt}
                         data-index={index}
                     >
                         <Image
-                            src={item.cover}
+                            src={item.image}
                             alt={item.alt}
-                            class:list={[
-                                "w-full rounded-lg shadow-lg object-cover",
-                                heightClass,
-                            ]}
+                            class:list={["w-full object-cover", heightClass]}
                         />
-                        <!-- <h2 class="mt-4 text-center text-xl font-semibold">
-                            {item.title}
-                        </h2> -->
+                        {item.photographer && (
+                            <p class="absolute bottom-4 left-4 rounded bg-black/50 px-2 py-1 text-xs text-white opacity-0 transition-opacity group-hover:opacity-100">
+                                Photo by {item.photographer}
+                            </p>
+                        )}
                     </div>
                 );
             })}
+        </div>
+    )
+}
+
+{
+    variant === "masonry" && (
+        <div class="columns-1 gap-4 space-y-4 p-4 md:columns-2 lg:columns-3">
+            {entries.map((item, index: number) => (
+                <div
+                    class="break-inside-avoid cursor-pointer"
+                    data-image-src={item.image}
+                    data-image-alt={item.alt}
+                    data-index={index}
+                >
+                    <img
+                        src={item.image}
+                        alt={item.alt}
+                        loading="lazy"
+                        decoding="async"
+                        class="h-auto w-full rounded-lg shadow-lg"
+                    />
+                </div>
+            ))}
         </div>
     )
 }
@@ -101,44 +134,25 @@ const { variant = "grid", entries } = Astro.props;
                 <div class="grid grid-cols-1">
                     <div
                         class="cursor-pointer"
-                        data-image-src={item.cover.src}
+                        data-image-src={item.image}
                         data-image-alt={item.alt}
                         data-index={index}
                     >
-                        <Image src={item.cover} alt={item.alt} class="w-full" />
+                        {/* IMPROVEMENT: Switched to <img> for reliability, like the masonry variant */}
+                        <img
+                            src={item.image}
+                            alt={item.alt}
+                            loading="lazy"
+                            decoding="async"
+                            class="w-full"
+                        />
                     </div>
-                    <div class="container mx-auto px-8 py-16 text-center">
+                    <div class="container mx-auto px-8 text-center">
                         <h2 class="text-3xl font-bold">{item.title}</h2>
-                        <p class="mt-4 max-w-2xl mx-auto text-text-muted">
+                        <p class="mx-auto mt-4 max-w-2xl text-text-muted">
                             {item.alt}
                         </p>
                     </div>
-                </div>
-            ))}
-        </div>
-    )
-}
-
-{
-    variant === "collage" && (
-        <div class="grid grid-cols-1 gap-16 md:grid-cols-2 lg:grid-cols-3">
-            {entries.map((item, index: number) => (
-                <div
-                    class="relative h-96 cursor-pointer"
-                    data-image-src={item.cover.src}
-                    data-image-alt={item.alt}
-                    data-index={index}
-                >
-                    <Image
-                        src={item.cover}
-                        alt={item.alt}
-                        class:list={[
-                            "absolute w-full h-full object-cover rounded-lg shadow-xl transition-transform duration-300 group-hover:scale-105",
-                            { "rotate-2": index % 3 === 0 },
-                            { "-rotate-3": index % 3 === 1 },
-                            { "rotate-1 top-4": index % 3 === 2 },
-                        ]}
-                    />
                 </div>
             ))}
         </div>
