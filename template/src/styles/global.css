@@ -17,8 +17,8 @@
     --color-accent: theme("color.yellow.400");
 
     /* UI Colors */
+    --color-background: theme("--color-zinc-50");
     --color-hero: #eddebf;
-    --color-navbar: #f3ece4;
     --color-image-background: theme("color-gray-50");
 
     /* Semantic UI Colors (Light Theme) */
@@ -26,7 +26,8 @@
     --color-text-muted: #404040;
     --color-text-inverted: #f5f5f5;
 
-    --color-fill: #fafafa;
+    /*#fafafa;*/
+    --color-fill: theme("--color-neutral-50");
     --color-fill-muted: #f5f5f5;
     --color-border: #e5e5e5;
 }
@@ -45,7 +46,6 @@
 
         /* UI Colors */
         /*--color-hero-image-border: theme("--color-zinc-200");*/
-        --color-navbar: #1a1a1a;
         --color-background: theme("--color-zinc-800");
 
         /* Redefine the semantic colors for the dark theme */
@@ -53,7 +53,7 @@
         --color-text-muted: #a3a3a3;
         --color-text-inverted: #171717;
 
-        --color-fill: #171717;
+        --color-fill: theme("--color-neutral-900");
         --color-fill-muted: #262626;
         --color-border: #262626;
     }

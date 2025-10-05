@@ -80,13 +80,10 @@ const titleTemplate = `%s | ${siteName}`;
     </head>
 
     <body class="font-bauhaus">
-        <div class="flex min-h-screen flex-col">
-            <Header />
-            <slot name="after-header" />
-            <main class="mx-auto w-full pb-8">
-                <slot />
-            </main>
-            <Footer />
-        </div>
+        <Header />
+        <main>
+            <slot />
+        </main>
+        <Footer />
     </body>
 </html>

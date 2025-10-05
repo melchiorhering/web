@@ -4,24 +4,17 @@ import TitleHeader from "../components/ui/TitleHeader.astro";
 import MasonryGallery from "../components/MasonryGallery.astro";
 import { Image } from "astro:assets";
 
-const galleryData = await getEntry("wood-work", "config");
+const galleryData = await getEntry("work", "config");
 const title = galleryData.data.title;
 const entries = galleryData.data.entries;
 const cover = galleryData.data.cover;
 ---
 
-<section class="relative mx-auto h-screen w-full px-4 md:px-12 space-y-8">
+<section class="relative mx-auto h-full w-full px-4 md:px-12 space-y-8">
     <TitleHeader text={title} subheader="01" />
 
     <div class="relative z-10">
-        <MasonryGallery
-            entries={entries}
-            gap={6}
-            cols={3}
-            colsSm={2}
-            colsMd={3}
-            colsLg={4}
-        />
+        <MasonryGallery entries={entries} />
     </div>
 
     <div class="absolute right-0 top-0 h-full">

@@ -1,0 +1,42 @@
+---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro:assets";
+
+// Define the props the component will accept
+interface Props {
+    title: string;
+    text: string;
+    image: ImageMetadata;
+    imageAlt?: string;
+}
+
+const {
+    title,
+    text,
+    image,
+    imageAlt = "A descriptive photo for the about section.",
+} = Astro.props;
+---
+
+<section class="py-16 md:py-24 bg-background">
+    <div class="container mx-auto px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div>
+                <h2 class="text-3xl md:text-4xl font-bold text-text-base">
+                    {title}
+                </h2>
+                <p class="mt-4 text-lg text-text-muted">
+                    {text}
+                </p>
+            </div>
+
+            <div>
+                <Image
+                    src={image}
+                    alt={imageAlt}
+                    class="w-full h-auto rounded-lg shadow-md"
+                />
+            </div>
+        </div>
+    </div>
+</section>

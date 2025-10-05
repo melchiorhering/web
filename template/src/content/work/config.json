@@ -1,0 +1,46 @@
+{
+  "title": "Work",
+  "cover": {
+    "src": "./bauhaus-scribble.webp",
+    "alt": "bauhaus-scribble image"
+  },
+  "entries": [
+    {
+      "alt": "Wood in workshop",
+      "image": "./images/dscf3157.webp"
+    },
+    {
+      "alt": "Tool Cabinet",
+      "image": "./images/dscf3202.webp"
+    },
+    {
+      "alt": "More Workshop",
+      "image": "./images/dscf3159.webp"
+    },
+    {
+      "alt": "Daan sketching",
+      "image": "./images/dscf3106.webp"
+    },
+    {
+      "alt": "Daan sketching #2",
+      "image": "./images/dscf3100.webp"
+    },
+    {
+      "alt": "Japanese Chissels",
+      "image": "./images/dscf3056.webp"
+    },
+    {
+      "alt": "Sliding door",
+      "image": "./images/schuifdeur.webp"
+    },
+
+    {
+      "alt": "Work in Progress",
+      "image": "./images/dsc07105.webp"
+    },
+    {
+      "alt": "Closup Chissels",
+      "image": "./images/dscf3055.webp"
+    }
+  ]
+}

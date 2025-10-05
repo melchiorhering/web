@@ -1,6 +1,5 @@
 ---
 import { Icon } from "astro-icon/components";
-
 interface Entry {
     image: string; // The image source path
     alt: string;
@@ -8,23 +7,11 @@ interface Entry {
 
 interface Props {
     entries: Entry[];
-    gap?: number;
-    cols?: number;
-    colsSm?: number;
-    colsMd?: number;
-    colsLg?: number;
 }
 
-const {
-    entries,
-    gap = 4,
-    cols = 2,
-    colsSm = 2,
-    colsMd = 3,
-    colsLg = 4,
-} = Astro.props;
+const aspectRatios = ["aspect-square", "aspect-3/2", "aspect-4/3"];
 
-// Build the dynamic class list for the container
+const { entries } = Astro.props;
 ---
 
 <div
@@ -57,25 +44,36 @@ const {
     />
 </div>
 
-<div class="columns-1 md:columns-3 gap-6 space-y-6">
-    {
-        entries.map((item, index) => (
-            <div
-                class="break-inside-avoid cursor-pointer"
-                data-image-src={item.image.src}
-                data-image-alt={item.alt}
-                data-index={index}
-            >
-                <img
-                    src={item.image.src}
-                    alt={item.alt}
-                    loading="lazy"
-                    decoding="async"
-                    class="h-auto w-full rounded-lg shadow-lg"
-                />
-            </div>
-        ))
-    }
+<div class="h-full">
+    <div class="columns-1 md:columns-3 gap-8 space-y-6">
+        {
+            entries.map((item, index) => {
+                const randomAspect =
+                    aspectRatios[
+                        Math.floor(Math.random() * aspectRatios.length)
+                    ];
+                return (
+                    <div
+                        class="cursor-pointer"
+                        data-image-src={item.image.src}
+                        data-image-alt={item.alt}
+                        data-index={index}
+                    >
+                        <img
+                            src={item.image.src}
+                            alt={item.alt}
+                            loading="lazy"
+                            decoding="async"
+                            class:list={[
+                                "w-full rounded-lg shadow-lg object-cover",
+                                randomAspect,
+                            ]}
+                        />
+                    </div>
+                );
+            })
+        }
+    </div>
 </div>
 
 <script>

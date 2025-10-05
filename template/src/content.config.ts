@@ -23,7 +23,7 @@ const heroConfig = defineCollection({
     }),
 });
 
-const woodWork = defineCollection({
+const workConfig = defineCollection({
   type: "data",
   schema: ({ image }) =>
     z.object({
@@ -40,7 +40,33 @@ const woodWork = defineCollection({
     }),
 });
 
+const footerConfig = defineCollection({
+  type: "data", // Use 'data' for JSON/YAML files
+  schema: z.object({
+    tagline: z.string(),
+    linkGroups: z.array(
+      z.object({
+        title: z.string(),
+        links: z.array(
+          z.object({
+            text: z.string(),
+            href: z.string().url(),
+          }),
+        ),
+      }),
+    ),
+    socialLinks: z.array(
+      z.object({
+        iconName: z.string(), // e.g., "mdi:github"
+        href: z.string().url(),
+      }),
+    ),
+    copyrightText: z.string(),
+  }),
+});
+
 export const collections = {
   hero: heroConfig,
-  "wood-work": woodWork,
+  work: workConfig,
+  footer: footerConfig,
 };

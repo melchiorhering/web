@@ -1,0 +1,27 @@
+{
+  "tagline": "Functionality is our aesthetic. Built with purpose in Amsterdam.",
+  "linkGroups": [
+    {
+      "title": "Navigate",
+      "links": [
+        { "text": "Home", "href": "https://example.com" },
+        { "text": "Projects", "href": "https://example.com" },
+        { "text": "Studio", "href": "https://example.com" }
+      ]
+    },
+    {
+      "title": "Connect",
+      "links": [
+        { "text": "Contact", "href": "https://example.com" },
+        { "text": "Careers", "href": "https://example.com" },
+        { "text": "Blog", "href": "https://example.com" }
+      ]
+    }
+  ],
+  "socialLinks": [
+    { "iconName": "mdi:github", "href": "https://github.com" },
+    { "iconName": "mdi:linkedin", "href": "https://linkedin.com" },
+    { "iconName": "mdi:behance", "href": "https://behance.net" }
+  ],
+  "copyrightText": "Form & Function Inc."
+}

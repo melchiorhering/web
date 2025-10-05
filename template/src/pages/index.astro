@@ -3,14 +3,22 @@
 import Layout from "../layouts/Layout.astro";
 import HeroSection from "../sections/Hero.astro";
 import WorkSection from "../sections/Work.astro";
+import SimpleAbout from "../sections/About.astro";
+import aboutImage from "../assets/favicon.jpg";
 
 const pageTitle = "Home";
 const pageDescription = "Welcome to my awesome website built with Astro!";
 ---
 
 <Layout title={pageTitle} description={pageDescription}>
-    <div class="space-y-8">
+    <div class="space-y-12">
         <HeroSection />
         <WorkSection />
+        <SimpleAbout
+            title="Our Story"
+            text="Founded in Amsterdam, our workshop is dedicated to creating functional and beautiful pieces. We believe in quality craftsmanship that stands the test of time, blending traditional techniques with a modern aesthetic."
+            image={aboutImage}
+            imageAlt="A shot of the workshop."
+        />
     </div>
 </Layout>
