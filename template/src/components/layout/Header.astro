@@ -1,12 +1,14 @@
 ---
-// src/components/layout/SimpleHeader.astro
+import { getEntry } from "astro:content";
 import { Image } from "astro:assets";
-import logo from "../../assets/favicon.jpg";
 import { Icon } from "astro-icon/components";
-import navLinks from "../../config/menu.json";
-import ThemeToggle from "./ThemeToggle.astro"; // Import the new toggle
+import ThemeToggle from "./ThemeToggle.astro";
 
-// --- STYLE VARIABLES (using arbitrary values) ---
+// --- Fetch dynamic header data ---
+const headerData = await getEntry("header", "config");
+const { logo, brandName, navLinks = [], contactButton } = headerData.data;
+
+// --- STYLE VARIABLES (unchanged) ---
 const navLinkClasses =
     "font-semibold text-base transition hover:text-primary px-4 py-3";
 const contactButtonClasses =
@@ -14,15 +16,25 @@ const contactButtonClasses =
 ---
 
 <header
-    class="absolute fixed top-0 w-full shadow-md transition-colors duration-300 bg-background/98 z-10"
+    id="header"
+    class="fixed top-0 z-50 w-full bg-background/98 shadow-md transition-colors duration-300"
 >
     <div
-        class="mx-auto flex h-16 items-center justify-between px-6 md:h-20 md:px-24"
+        class="mx-auto flex h-18 items-center justify-between px-6 md:h-18 md:px-24"
     >
         <a href="/" class="flex items-center gap-3">
-            <Image src={logo} alt="Timmerman Logo" width={36} height={36} />
+            {
+                logo && (
+                    <Image
+                        src={logo}
+                        alt={`${brandName} Logo`}
+                        width={36}
+                        height={36}
+                    />
+                )
+            }
             <span class="text-xl font-bold text-[var(--color-text-base)]"
-                >Timmerman</span
+                >{brandName}</span
             >
         </a>
 
@@ -41,22 +53,29 @@ const contactButtonClasses =
                 </ul>
             </nav>
             <div class="flex items-center gap-2">
-                <!-- Contact Button -->
-                <a
-                    href="/contact"
-                    class:list={[contactButtonClasses, "hidden md:flex"]}
-                >
-                    <span>Contact</span>
-                    <Icon name="mdi:email-edit-outline" class="h-6 w-6" />
-                </a>
+                {
+                    contactButton && (
+                        <a
+                            href={contactButton.path}
+                            class:list={[
+                                contactButtonClasses,
+                                "hidden md:flex",
+                            ]}
+                        >
+                            <span>{contactButton.text}</span>
+                            <Icon
+                                name="mdi:email-edit-outline"
+                                class="h-6 w-6"
+                            />
+                        </a>
+                    )
+                }
 
-                <!-- Theme Toggle -->
                 <ThemeToggle />
 
-                <!-- Mobile Hamburger -->
                 <button
                     id="hamburger-button"
-                    class="relative flex h-10 w-10 items-center justify-center rounded-full text-text-muted bg-slate-100 transition hover:bg-fill-muted hover:text-text-base md:hidden"
+                    class="relative flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-text-muted transition hover:bg-fill-muted hover:text-text-base md:hidden"
                     aria-label="Toggle Menu"
                     aria-expanded="false"
                 >
@@ -67,7 +86,7 @@ const contactButtonClasses =
                     />
                     <Icon
                         name="mdi:window-close"
-                        class="close-icon h-6 w-6 hidden"
+                        class="close-icon hidden h-6 w-6"
                     />
                 </button>
             </div>
@@ -77,8 +96,7 @@ const contactButtonClasses =
     <div
         id="mobile-menu"
         class:list={[
-            "absolute top-16 left-0 w-full border-t border-border bg-background md:hidden md:top-20",
-            "transition-all duration-300 ease-in-out",
+            "absolute top-16 left-0 w-full border-t border-border bg-background transition-all duration-300 ease-in-out md:hidden md:top-20",
             "-translate-y-full opacity-0 invisible",
             "[&.is-menu-open]:translate-y-0 [&.is-menu-open]:opacity-100 [&.is-menu-open]:visible",
         ]}
@@ -90,23 +108,29 @@ const contactButtonClasses =
                 {
                     navLinks.map((link) => (
                         <li class="text-center">
-                            {" "}
-                            {/* Reverted to text-center */}
                             <a class={navLinkClasses} href={link.path}>
                                 {link.name}
                             </a>
                         </li>
                     ))
                 }
-                <li>
-                    <a
-                        href="/contact"
-                        class:list={[contactButtonClasses, "w-full"]}
-                    >
-                        <span>Contact Me</span>
-                        <Icon name="mdi:email-edit-outline" class="h-6 w-6" />
-                    </a>
-                </li>
+
+                {
+                    contactButton && (
+                        <li>
+                            <a
+                                href={contactButton.path}
+                                class:list={[contactButtonClasses, "w-full"]}
+                            >
+                                <span>{contactButton.text}</span>
+                                <Icon
+                                    name="mdi:email-edit-outline"
+                                    class="h-6 w-6"
+                                />
+                            </a>
+                        </li>
+                    )
+                }
             </ul>
         </nav>
     </div>

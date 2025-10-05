@@ -15,10 +15,19 @@ const pageDescription = "Welcome to my awesome website built with Astro!";
         <HeroSection />
         <WorkSection />
         <SimpleAbout
-            title="Our Story"
-            text="Founded in Amsterdam, our workshop is dedicated to creating functional and beautiful pieces. We believe in quality craftsmanship that stands the test of time, blending traditional techniques with a modern aesthetic."
+            title="My Story"
+            intro="Founded in Amsterdam, our workshop is dedicated to creating functional and beautiful pieces. We believe in quality craftsmanship that stands the test of time, blending traditional techniques with a modern aesthetic."
+            features={[
+                "Honesty in Materials",
+                "Purposeful Design",
+                "Uncompromising Quality",
+            ]}
             image={aboutImage}
             imageAlt="A shot of the workshop."
+            cta={{
+                text: "See Our Work",
+                href: "/work",
+            }}
         />
     </div>
 </Layout>

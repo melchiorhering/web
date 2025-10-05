@@ -7,21 +7,42 @@ import { Image } from "astro:assets";
 const galleryData = await getEntry("work", "config");
 const title = galleryData.data.title;
 const entries = galleryData.data.entries;
-const cover = galleryData.data.cover;
 ---
 
-<section class="relative mx-auto h-full w-full px-4 md:px-12 space-y-8">
-    <TitleHeader text={title} subheader="01" />
-
-    <div class="relative z-10">
-        <MasonryGallery entries={entries} />
+<section
+    class="relative mx-auto h-full w-full px-4 md:px-18 overflow-hidden space-y-8"
+>
+    <div
+        class="absolute top-10 left-10 w-24 h-24 bg-primary/20 transform rotate-12 -z-0"
+    >
+    </div>
+    <div
+        class="absolute bottom-20 right-5 w-32 h-32 bg-secondary/20 rounded-full -z-0"
+    >
+    </div>
+    <div class="absolute top-1/2 left-1/4 w-4 h-48 bg-accent/30 rotate-45 -z-0">
+    </div>
+    <div
+        class="absolute bottom-1/4 left-1/2 w-64 h-1 bg-primary/30 rotate-12 -z-0"
+    >
+    </div>
+    <div class="absolute top-0 right-0 w-48 h-48 bg-accent/10 square-clip -z-0">
+    </div>
+    <div
+        class="absolute -bottom-10 -left-10 w-64 h-64 bg-primary/10 rounded-br-3xl -z-0"
+    >
     </div>
 
-    <div class="absolute right-0 top-0 h-full">
-        <Image
-            src={cover.src}
-            alt={cover.alt}
-            class="h-full w-full object-cover opacity-10"
-        />
+    <style>
+        /* Define a custom clip-path for a more abstract square/shape */
+        .square-clip {
+            clip-path: polygon(0 0, 100% 10%, 90% 100%, 10% 90%);
+        }
+    </style>
+
+    <TitleHeader text={title} subheader="01" />
+
+    <div class="relative z-10 space-y-8">
+        <MasonryGallery entries={entries} />
     </div>
 </section>

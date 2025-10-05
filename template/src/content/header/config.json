@@ -1,0 +1,13 @@
+{
+  "logo": "./images/favicon.jpg",
+  "brandName": "Timmerman",
+  "navLinks": [
+    { "name": "Home", "path": "/" },
+    { "name": "Work", "path": "/work" },
+    { "name": "About", "path": "/about" }
+  ],
+  "contactButton": {
+    "text": "Contact",
+    "path": "/contact"
+  }
+}

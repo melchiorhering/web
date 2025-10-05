@@ -1,13 +1,10 @@
 {
   "title": "Custom Woodwork, <br /> Built to Last.",
   "subtitle": "From bespoke furniture to unique handcrafted pieces, we bring your vision to life with passion and precision.",
+  "heroImage": { "src": "./images/hero-image.webp", "alt": "Timmerman Daan" },
   "button": {
     "text": "Get a Quote",
     "href": "/contact"
-  },
-  "heroImage": {
-    "src": "./images/hero-image.webp",
-    "alt": "A beautifully crafted wooden piece of furniture"
   },
   "bauhausPipes": [
     { "length": "80px", "colorIndex": 0 },
