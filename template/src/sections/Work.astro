@@ -1,7 +1,7 @@
 ---
 import { getEntry } from "astro:content";
 import TitleHeader from "../components/ui/TitleHeader.astro";
-import MasonryGallery from "../components/MasonryGallery.astro";
+import HoverGallery from "../components/HoverGallery.astro";
 import { Image } from "astro:assets";
 
 const galleryData = await getEntry("work", "config");
@@ -40,9 +40,9 @@ const entries = galleryData.data.entries;
         }
     </style>
 
-    <TitleHeader text={title} subheader="01" />
+    <!-- <TitleHeader text={title} subheader="01" /> -->
 
     <div class="relative z-10 space-y-8">
-        <MasonryGallery entries={entries} />
+        <HoverGallery entries={entries} />
     </div>
 </section>
