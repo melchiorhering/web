@@ -1,0 +1,48 @@
+---
+// src/pages/[lang]/projects/index.astro
+import Layout from "@layouts/Layout.astro";
+import Section from "@components/layout/Section.astro";
+import Gallery from "@components/Gallery.astro";
+import { getCollection, type CollectionEntry } from "astro:content";
+import { useTranslations } from "@i18n/utils";
+
+// Define the static paths
+export function getStaticPaths() {
+    return [{ params: { lang: "en" } }, { params: { lang: "nl" } }];
+}
+
+// 3. Get the current language and load dictionaries
+const { lang } = Astro.params;
+const t = useTranslations(lang as any);
+
+// 4. Fetch projects, filter by current language, and then sort by year
+const allProjects = await getCollection("projects");
+const sortedProjects = allProjects
+    .filter((project) => project.id.startsWith(`${lang}/`))
+    .sort(
+        (a: CollectionEntry<"projects">, b: CollectionEntry<"projects">) =>
+            b.data.completionYear - a.data.completionYear,
+    );
+---
+
+<Layout
+    title={t("portfolio.title") || "Our Portfolio"}
+    description={t("portfolio.subtitle") ||
+        "Browse all bespoke woodworking projects."}
+>
+    <Section>
+        <div class="mb-12 text-center">
+            <h1 class="text-5xl font-heading text-wood-dark mb-4">
+                {t("portfolio.title") || "Our Portfolio"}
+            </h1>
+            <p class="text-lg text-wood-text max-w-2xl mx-auto">
+                {
+                    t("portfolio.subtitle") ||
+                        "A complete archive of our custom furniture and cabinetry builds."
+                }
+            </p>
+        </div>
+
+        <Gallery projects={sortedProjects} />
+    </Section>
+</Layout>

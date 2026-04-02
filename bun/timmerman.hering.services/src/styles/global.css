@@ -1,0 +1,40 @@
+/* src/styles/global.css */
+@import "tailwindcss";
+
+/* Register your custom variables into Tailwind's theme */
+@theme {
+    --color-wood-bg: #fcfbf9;
+    --color-wood-text: #2c241b;
+    --color-wood-light: #d4a373;
+    --color-wood-base: #8b5a2b;
+    --color-wood-dark: #5c3a21;
+    --color-wood-accent: #3a5a40;
+
+    --font-heading: "Georgia", serif;
+    /* Note: Tailwind uses system-ui for standard text by default, so we don't need to redefine it */
+}
+
+/* 2. Style standard HTML elements globally */
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        /* @apply lets you use Tailwind classes inside standard CSS */
+        @apply bg-wood-bg text-wood-text antialiased min-h-screen w-full;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply font-heading text-wood-dark;
+    }
+
+    a {
+        @apply text-wood-base transition-colors duration-200 hover:text-wood-dark;
+    }
+}

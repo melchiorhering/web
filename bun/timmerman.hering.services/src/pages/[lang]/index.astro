@@ -1,0 +1,55 @@
+---
+// src/pages/[lang]/index.astro
+import Layout from "@layouts/Layout.astro";
+import Section from "@components/layout/Section.astro";
+import Hero from "@sections/Hero.astro";
+import Gallery from "@components/Gallery.astro";
+import { getCollection } from "astro:content";
+import { useTranslations, useTranslatedPath } from "@i18n/utils";
+
+// Define the static paths so Astro knows to build /en/ and /nl/
+export function getStaticPaths() {
+    return [{ params: { lang: "en" } }, { params: { lang: "nl" } }];
+}
+
+// 3. Get the current language and load dictionaries
+const { lang } = Astro.params;
+const t = useTranslations(lang as any);
+const translatePath = useTranslatedPath(lang as any);
+const siteData = t("site") as any;
+
+// 4. Fetch data and filter for featured AND the current language
+const allProjects = await getCollection("projects");
+const featuredProjects = allProjects.filter(
+    (project) => project.data.isFeatured && project.id.startsWith(`${lang}/`),
+);
+---
+
+<Layout title="Home" description={siteData.description}>
+    <Hero />
+
+    <Section>
+        <div class="flex justify-between items-end mb-10">
+            <h2 class="text-4xl font-heading text-wood-dark">
+                {t("home.featuredWorks") || "Featured Works"}
+            </h2>
+            <a
+                href={translatePath("/projects")}
+                class="hidden sm:block text-wood-base hover:text-wood-dark font-medium transition-colors"
+            >
+                {t("home.viewAll") || "View all projects"} &rarr;
+            </a>
+        </div>
+
+        <Gallery projects={featuredProjects} />
+
+        <div class="mt-10 sm:hidden text-center">
+            <a
+                href={translatePath("/projects")}
+                class="text-wood-base hover:text-wood-dark font-medium transition-colors"
+            >
+                {t("home.viewAll") || "View all projects"} &rarr;
+            </a>
+        </div>
+    </Section>
+</Layout>

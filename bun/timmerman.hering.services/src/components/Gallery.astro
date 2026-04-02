@@ -1,0 +1,64 @@
+---
+// src/components/Gallery.astro
+import type { CollectionEntry } from "astro:content";
+import { Image } from "astro:assets";
+
+interface Props {
+    projects: CollectionEntry<"projects">[];
+}
+
+const { projects } = Astro.props;
+
+// Load all images eagerly
+const allImages = import.meta.glob<{ default: ImageMetadata }>(
+    "/src/assets/images/projects/**/*.{jpeg,jpg,png,webp}",
+    { eager: true },
+);
+---
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    {
+        projects.map((project) => {
+            // 1. Separate the language ('nl') from the folder name ('bank-simpel')
+            const [lang, ...slugParts] = project.id.split("/");
+            const slug = slugParts.join("/");
+
+            // 2. Search for the image using ONLY the slug
+            const coverPath = Object.keys(allImages).find((path) =>
+                path.includes(`/projects/${slug}/cover.`),
+            );
+            const coverImage = coverPath ? allImages[coverPath].default : null;
+
+            return (
+                <a
+                    href={`/${lang}/projects/${slug}`}
+                    class="group block cursor-pointer"
+                >
+                    <div class="aspect-4/3 overflow-hidden rounded-md bg-wood-light/20 mb-4 relative shadow-sm group-hover:shadow-md transition-shadow duration-300">
+                        {coverImage && (
+                            <Image
+                                src={coverImage}
+                                alt={project.data.title}
+                                class="object-cover w-full h-full transition-transform duration-700 group-hover:scale-105"
+                            />
+                        )}
+                    </div>
+
+                    <div class="flex justify-between items-start mt-4">
+                        <div>
+                            <h3 class="text-xl font-heading text-wood-dark group-hover:text-wood-base transition-colors duration-300">
+                                {project.data.title}
+                            </h3>
+                            <p class="text-wood-text/80 text-sm mt-1 line-clamp-2">
+                                {project.data.description}
+                            </p>
+                        </div>
+                        <span class="text-xs font-medium px-2 py-1 bg-wood-light/20 text-wood-dark rounded-sm whitespace-nowrap ml-4">
+                            {project.data.completionYear}
+                        </span>
+                    </div>
+                </a>
+            );
+        })
+    }
+</div>

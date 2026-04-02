@@ -1,0 +1,29 @@
+---
+// src/components/LanguagePicker.astro
+import { languages } from "@i18n/utils";
+import { getLangFromUrl, useTranslatedPath } from "@i18n/utils";
+
+const currentLang = getLangFromUrl(Astro.url);
+const translatePath = useTranslatedPath(currentLang);
+
+// Extract the current path without the language prefix so we can swap languages on the same page
+const pathname = new URL(Astro.url).pathname;
+const currentPathWithoutLang = pathname.replace(`/${currentLang}`, "") || "/";
+---
+
+<div class="flex items-center gap-2">
+    {
+        Object.entries(languages).map(([lang, label]) => (
+            <a
+                href={translatePath(currentPathWithoutLang, lang)}
+                class={`text-sm font-medium px-2 py-1 rounded-sm transition-colors ${
+                    currentLang === lang
+                        ? "bg-wood-dark text-wood-bg"
+                        : "text-wood-text hover:bg-wood-light/20"
+                }`}
+            >
+                {lang.toUpperCase()}
+            </a>
+        ))
+    }
+</div>

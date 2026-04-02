@@ -1,0 +1,116 @@
+---
+// src/sections/Hero.astro
+import { Image } from "astro:assets";
+import workshopImg from "@assets/images/workshop.webp";
+import Section from "@components/layout/Section.astro";
+import { Icon } from "astro-icon/components";
+import {
+    getLangFromUrl,
+    useTranslations,
+    useTranslatedPath,
+} from "@i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
+
+const hero = t("landing.hero") as any;
+---
+
+<Section
+    class="relative pt-12 pb-20 lg:pt-24 lg:pb-28"
+    containerClass="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center"
+>
+    <div class="flex flex-col order-2 lg:order-1 relative z-10">
+        <span
+            class="text-wood-base font-semibold tracking-widest uppercase text-sm mb-4 block"
+        >
+            {hero.kicker}
+        </span>
+
+        <h1
+            class="text-5xl lg:text-7xl font-heading text-wood-dark leading-[1.1] mb-6"
+        >
+            {hero.titleBase}
+            <br />
+            <span class="relative inline-block text-wood-base italic mt-2">
+                {hero.titleHighlight}
+                <svg
+                    class="absolute w-full h-3 -bottom-1 left-0 text-wood-light/30 -z-10"
+                    viewBox="0 0 100 10"
+                    preserveAspectRatio="none"
+                >
+                    <path
+                        d="M0 5 Q 50 10 100 5"
+                        stroke="currentColor"
+                        stroke-width="8"
+                        fill="none"
+                        stroke-linecap="round"></path>
+                </svg>
+            </span>
+        </h1>
+
+        <p
+            class="text-lg lg:text-xl text-wood-text/90 max-w-lg leading-relaxed mb-8"
+        >
+            {hero.description}
+        </p>
+
+        <div class="flex flex-wrap gap-4">
+            <a
+                href={translatePath(hero.buttons.primary.href)}
+                class="group inline-flex items-center justify-center px-8 py-3.5 bg-wood-base text-wood-bg font-medium rounded-sm shadow-md hover:shadow-lg hover:bg-wood-dark transition-all duration-300"
+            >
+                {hero.buttons.primary.label}
+                <Icon
+                    name="lucide:arrow-right"
+                    class="w-4 h-4 ml-2 transition-transform duration-300 group-hover:translate-x-1"
+                />
+            </a>
+
+            <a
+                href={translatePath(hero.buttons.secondary.href)}
+                class="inline-flex items-center justify-center px-8 py-3.5 border-2 border-wood-base/30 text-wood-dark font-medium rounded-sm hover:border-wood-base hover:bg-wood-base/5 transition-colors duration-300"
+            >
+                {hero.buttons.secondary.label}
+            </a>
+        </div>
+    </div>
+
+    <div class="relative h-100 lg:h-162.5 w-full order-1 lg:order-2 group">
+        <Image
+            src={workshopImg}
+            alt="Woodworker shaping timber in the workshop"
+            class="absolute inset-0 w-full h-full object-cover rounded-md shadow-xl z-10 transition-all group-hover:duration-700 group-hover:scale-101"
+            widths={[400, 800, 1200]}
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            loading="eager"
+            fetchpriority="high"
+        />
+
+        <div
+            class="absolute inset-0 border-2 border-wood-base/30 rounded-md pointer-events-none translate-x-4 translate-y-4 z-0 transition-all duration-700 group-hover:translate-x-6 group-hover:translate-y-6 group-hover:-rotate-1"
+        >
+        </div>
+
+        <div
+            class="absolute -bottom-6 -left-6 z-20 bg-white/90 backdrop-blur-sm border border-wood-light/20 shadow-lg rounded-sm py-4 px-6 flex items-center gap-4 transition-transform duration-500 group-hover:-translate-y-2"
+        >
+            <div
+                class="w-12 h-12 rounded-full bg-wood-bg flex items-center justify-center text-wood-base border border-wood-light/40"
+            >
+                <Icon name="amsterdam-canal" class="w-6 h-6 stroke-2" />
+            </div>
+            <div>
+                <p
+                    class="text-xs text-wood-text/60 font-medium uppercase tracking-wider mb-0.5"
+                >
+                    {hero.badge.topText}
+                </p>
+                <p class="text-sm font-heading font-bold text-wood-dark">
+                    {hero.badge.bottomText}
+                </p>
+            </div>
+        </div>
+    </div>
+</Section>

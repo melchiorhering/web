@@ -1,0 +1,68 @@
+---
+// src/components/layout/Header.astro
+import {
+    getLangFromUrl,
+    useTranslations,
+    useTranslatedPath,
+} from "@i18n/utils";
+import { Icon } from "astro-icon/components";
+import LanguagePicker from "@components/LanguagePicker.astro";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
+---
+
+<header
+    class="sticky top-0 z-50 w-full bg-wood-bg/90 backdrop-blur-md border-b border-wood-light/20"
+>
+    <div class="max-w-300 mx-auto px-6 h-20 flex items-center justify-between">
+        <a href={translatePath("/")} class="flex items-center gap-3 group">
+            <img
+                src="/images/default-og.jpg"
+                alt="Logo"
+                class="w-12 rounded-sm"
+            />
+            <span
+                class="text-2xl font-heading font-bold text-wood-dark hidden sm:block"
+            >
+                {t("site.brandName")}
+            </span>
+        </a>
+
+        <div class="hidden md:flex items-center gap-8">
+            <nav class="flex items-center gap-6">
+                {
+                    t("site.navLinks").map((link: any) => (
+                        <a
+                            href={translatePath(link.href)}
+                            class="text-wood-text hover:text-wood-base font-medium"
+                        >
+                            {link.label}
+                        </a>
+                    ))
+                }
+            </nav>
+
+            <div
+                class="flex items-center gap-6 border-l border-wood-light/30 pl-6"
+            >
+                <LanguagePicker />
+
+                <a
+                    href={translatePath("/contact")}
+                    class="px-6 py-2.5 bg-wood-base text-wood-bg text-sm font-medium rounded-sm hover:bg-wood-dark transition-colors"
+                >
+                    {t("site.callToAction.label") || "Get a Quote"}
+                </a>
+            </div>
+        </div>
+
+        <div class="flex md:hidden items-center gap-4">
+            <LanguagePicker />
+            <button class="text-wood-dark p-2" aria-label="Toggle Menu">
+                <Icon name="lucide:menu" class="w-6 h-6" />
+            </button>
+        </div>
+    </div>
+</header>

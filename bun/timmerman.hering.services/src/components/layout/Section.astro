@@ -1,0 +1,21 @@
+---
+// src/components/layout/Section.astro
+
+interface Props {
+    id?: string;
+    class?: string; // Controls the outer <section> (backgrounds, vertical padding)
+    containerClass?: string; // Controls the inner <div> (grid, flexbox, gaps)
+}
+
+const {
+    id,
+    class: className = "py-6", // Default vertical padding for standard sections
+    containerClass = "", // Default empty string
+} = Astro.props;
+---
+
+<section id={id} class={`w-full ${className}`}>
+    <div class={`max-w-300 mx-auto px-6 ${containerClass}`}>
+        <slot />
+    </div>
+</section>

@@ -1,0 +1,121 @@
+{
+  "site": {
+    "brandName": "Timmerman",
+    "description": "Bespoke wooden furniture and custom cabinetry, handcrafted with passion and precision in the heart of Amsterdam.",
+    "navLinks": [
+      { "label": "Services", "href": "/#services" },
+      { "label": "Our Work", "href": "/projects" },
+      { "label": "About", "href": "/#about" }
+    ],
+    "callToAction": {
+      "label": "Get a Quote",
+      "href": "/contact"
+    }
+  },
+  "contact": {
+    "email": "hello@timmermanhering.services",
+    "city": "Amsterdam",
+    "region": "North Holland",
+    "country": "Netherlands",
+    "title": "Let's Build Something",
+    "subtitle": "Fill out the details below to give us an idea of your project. The estimator will provide a rough starting price, and we'll be in touch to discuss the exact details.",
+    "formTitle": "Your Details",
+    "form": {
+      "name": "Full Name",
+      "email": "Email Address",
+      "phone": "Phone Number (Optional)",
+      "description": "Project Description",
+      "placeholder": "Tell us about your vision, dimensions, and where it will go...",
+      "submit": "Submit Request"
+    },
+    "estimator": {
+      "title": "Project Estimator",
+      "subtitle": "Select your options below to get a rough baseline estimate.",
+      "typeLabel": "Type of Project",
+      "materialLabel": "Preferred Material",
+      "sizeLabel": "Approximate Size",
+      "estimateLabel": "Estimated Starting Price",
+      "disclaimer": "*This is a rough baseline estimate for materials and labor. Final quotes require a detailed consultation.",
+      "projectTypes": [
+        {
+          "value": "table",
+          "label": "Dining / Coffee Table",
+          "basePrice": 800
+        },
+        {
+          "value": "cabinetry",
+          "label": "Custom Cabinetry / Wardrobe",
+          "basePrice": 1200
+        },
+        {
+          "value": "shelving",
+          "label": "Bookshelves / Storage",
+          "basePrice": 450
+        },
+        { "value": "repair", "label": "Restoration / Repair", "basePrice": 150 }
+      ],
+      "materials": [
+        {
+          "value": "pine",
+          "label": "Pine / Softwood (Standard)",
+          "multiplier": 1.0
+        },
+        {
+          "value": "oak",
+          "label": "European Oak / Ash (Premium)",
+          "multiplier": 1.5
+        },
+        {
+          "value": "walnut",
+          "label": "Walnut / Mahogany (Luxury)",
+          "multiplier": 2.0
+        }
+      ],
+      "sizes": [
+        {
+          "value": "small",
+          "label": "Small (e.g., Coffee table)",
+          "multiplier": 1.0
+        },
+        {
+          "value": "medium",
+          "label": "Medium (e.g., 4-seater table)",
+          "multiplier": 1.5
+        },
+        {
+          "value": "large",
+          "label": "Large (e.g., full wall unit)",
+          "multiplier": 2.2
+        }
+      ]
+    }
+  },
+  "landing": {
+    "hero": {
+      "kicker": "Timmerman Daan",
+      "titleBase": "Made with",
+      "titleHighlight": "Passion & Precision",
+      "description": "Bespoke wooden furniture and custom cabinetry, handcrafted in the heart of Amsterdam. We turn raw timber into timeless pieces designed to last generations.",
+      "buttons": {
+        "primary": { "label": "Discuss Your Project", "href": "/contact" },
+        "secondary": { "label": "View Our Work", "href": "/#services" }
+      },
+      "badge": {
+        "topText": "Locally Sourced",
+        "bottomText": "Handcrafted in AMS"
+      }
+    }
+  },
+  "portfolio": {
+    "title": "Our Portfolio",
+    "subtitle": "A complete archive of our custom furniture and cabinetry builds."
+  },
+  "home": {
+    "featuredWorks": "Featured Works",
+    "viewAll": "View all projects"
+  },
+  "footer": {
+    "quickLinks": "Quick Links",
+    "contact": "Contact"
+  }
+}

@@ -1,0 +1,17 @@
+---
+// src/pages/[lang]/contact.astro
+import Layout from "@layouts/Layout.astro";
+import ContactForm from "@sections/ContactForm.astro";
+
+// ADD THIS EXPORT: Tell Astro to build both languages
+export function getStaticPaths() {
+    return [{ params: { lang: "en" } }, { params: { lang: "nl" } }];
+}
+---
+
+<Layout
+    title="Get a Quote"
+    description="Contact Timmerman Hering for a custom woodworking quote."
+>
+    <ContactForm />
+</Layout>
