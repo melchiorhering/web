@@ -86,14 +86,13 @@ const contactData = t("contact") as any;
                 <label
                     for="phone"
                     class="block text-sm font-medium text-wood-text mb-2"
-                    >{
-                        t("contact.form.phone") || "Phone Number (Optional)"
-                    }</label
+                    >{t("contact.form.phone") || "Phone Number"}</label
                 >
                 <input
                     type="tel"
                     id="phone"
                     name="Phone"
+                    required
                     class="w-full px-4 py-2.5 rounded-sm border border-wood-light/50 focus:border-wood-base focus:ring-1 focus:ring-wood-base outline-none transition-colors bg-wood-bg/50 text-wood-text placeholder-wood-text/40"
                 />
             </div>

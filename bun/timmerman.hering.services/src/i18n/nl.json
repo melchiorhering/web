@@ -19,7 +19,7 @@
     "form": {
       "name": "Volledige Naam",
       "email": "E-mailadres",
-      "phone": "Telefoonnummer (Optioneel)",
+      "phone": "Telefoonnummer",
       "description": "Projectbeschrijving",
       "placeholder": "Vertel mij over je visie, de afmetingen en waar het project gerealiseerd moet worden... ",
       "submit": "Aanvraag Versturen",
@@ -110,7 +110,7 @@
   },
   "portfolio": {
     "title": "Mijn Portfolio",
-    "subtitle": "Een overzicht van mijn op maat gemaakte meubels en kasten, gerealiseerd in de regio.",
+    "subtitle": "Een overzicht van mijn op maat gemaakte meubels & kasten en andere houtwerken",
     "backToAll": "Terug naar alle projecten",
     "completed": "Voltooid:"
   },
