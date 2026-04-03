@@ -1,11 +1,10 @@
 {
   "site": {
     "brandName": "Timmerman",
-    "description": "Bespoke wooden furniture and custom cabinetry, handcrafted with passion and precision in the heart of Amsterdam.",
+    "description": "Bespoke wooden furniture and custom cabinetry, crafted with passion and precision by an Amsterdam artisan. Working in Amsterdam, Utrecht, and the surrounding areas.",
     "navLinks": [
-      { "label": "Services", "href": "/#services" },
-      { "label": "Our Work", "href": "/projects" },
-      { "label": "About", "href": "/#about" }
+      { "label": "My Work", "href": "/projects" },
+      { "label": "About Me", "href": "/#about" }
     ],
     "callToAction": {
       "label": "Get a Quote",
@@ -14,28 +13,28 @@
   },
   "contact": {
     "email": "hello@timmermanhering.services",
-    "city": "Amsterdam",
-    "region": "North Holland",
+    "city": "Amsterdam / Utrecht",
+    "region": "Randstad",
     "country": "Netherlands",
-    "title": "Let's Build Something",
-    "subtitle": "Fill out the details below to give us an idea of your project. The estimator will provide a rough starting price, and we'll be in touch to discuss the exact details.",
+    "title": "Project Estimate",
+    "subtitle": "Fill in your details below to give me an idea of your project. I work in the Amsterdam and Utrecht region. The calculator provides a rough estimate, after which I will contact you to discuss the details.",
     "formTitle": "Your Details",
     "form": {
       "name": "Full Name",
       "email": "Email Address",
       "phone": "Phone Number (Optional)",
       "description": "Project Description",
-      "placeholder": "Tell us about your vision, dimensions, and where it will go...",
+      "placeholder": "Tell me about your vision, the dimensions, and where the project will be realized...",
       "submit": "Submit Request"
     },
     "estimator": {
       "title": "Project Estimator",
       "subtitle": "Select your options below to get a rough baseline estimate.",
-      "typeLabel": "Type of Project",
+      "typeLabel": "Project Type",
       "materialLabel": "Preferred Material",
       "sizeLabel": "Approximate Size",
       "estimateLabel": "Estimated Starting Price",
-      "disclaimer": "*This is a rough baseline estimate for materials and labor. Final quotes require a detailed consultation.",
+      "disclaimer": "*This is a rough baseline estimate for materials and labor. A final quote requires a detailed consultation.",
       "projectTypes": [
         {
           "value": "table",
@@ -52,7 +51,11 @@
           "label": "Bookshelves / Storage",
           "basePrice": 450
         },
-        { "value": "repair", "label": "Restoration / Repair", "basePrice": 150 }
+        {
+          "value": "repair",
+          "label": "Restoration / Repair",
+          "basePrice": 150
+        }
       ],
       "materials": [
         {
@@ -95,20 +98,22 @@
       "kicker": "Timmerman Daan",
       "titleBase": "Made with",
       "titleHighlight": "Passion & Precision",
-      "description": "Bespoke wooden furniture and custom cabinetry, handcrafted in the heart of Amsterdam. We turn raw timber into timeless pieces designed to last generations.",
+      "description": "Bespoke wooden furniture and custom cabinetry, handcrafted by an Amsterdam artisan. I work on projects in the Amsterdam, Utrecht, and surrounding regions.",
       "buttons": {
-        "primary": { "label": "Discuss Your Project", "href": "/contact" },
-        "secondary": { "label": "View Our Work", "href": "/#services" }
+        "primary": { "label": "Discuss your project", "href": "/contact" },
+        "secondary": { "label": "View my work", "href": "/projects" }
       },
       "badge": {
-        "topText": "Locally Sourced",
-        "bottomText": "Handcrafted in AMS"
+        "topText": "Craftsmanship",
+        "bottomText": "Amsterdam & Utrecht"
       }
     }
   },
   "portfolio": {
-    "title": "Our Portfolio",
-    "subtitle": "A complete archive of our custom furniture and cabinetry builds."
+    "title": "My Portfolio",
+    "subtitle": "An overview of my custom-made furniture and cabinetry, realized in the region.",
+    "backToAll": "Back to all projects",
+    "completed": "Completed:"
   },
   "home": {
     "featuredWorks": "Featured Works",
