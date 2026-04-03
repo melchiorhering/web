@@ -1,0 +1,128 @@
+{
+  "site": {
+    "brandName": "Timmerman",
+    "description": "Op maat gemaakte houten meubels en inbouwkasten, met passie en precisie vervaardigd door een Amsterdamse vakman. Werkzaam in Amsterdam, Utrecht en omstreken.",
+    "navLinks": [
+      { "label": "Mijn Werk", "href": "/projegcts" },
+      { "label": "Over Mij", "href": "/#about" }
+    ],
+    "callToAction": {
+      "label": "Offerte aanvragen",
+      "href": "/contact"
+    }
+  },
+  "contact": {
+    "email": "timmerman.hering.services",
+    "city": "Amsterdam / Utrecht",
+    "region": "Randstad",
+    "country": "Nederland",
+    "title": "Prijsindicatie",
+    "subtitle": "Vul hieronder je gegevens in om mij een idee te geven van je project. Ik ben werkzaam in de regio Amsterdam en Utrecht. De calculator geeft een ruwe schatting, waarna ik contact met je opneem voor de details.",
+    "formTitle": "Jouw Gegevens",
+    "form": {
+      "name": "Volledige Naam",
+      "email": "E-mailadres",
+      "phone": "Telefoonnummer (Optioneel)",
+      "description": "Projectbeschrijving",
+      "placeholder": "Vertel mij over je visie, de afmetingen en waar het project gerealiseerd moet worden... ",
+      "submit": "Aanvraag Versturen",
+      "success": "Bedankt! Je aanvraag is succesvol verzonden. Ik neem snel contact op.",
+      "error": "Oeps! Er ging iets mis. Probeer het later nog eens of neem rechtstreeks via e-mail contact met me op."
+    },
+    "estimator": {
+      "title": "Prijsindicatie",
+      "subtitle": "Selecteer hieronder je opties om een ruwe basisprijs te krijgen.",
+      "typeLabel": "Soort Project",
+      "materialLabel": "Voorkeursmateriaal",
+      "sizeLabel": "Geschatte Grootte",
+      "estimateLabel": "Geschatte Vanafprijs",
+      "disclaimer": "*Dit is een ruwe basisschatting voor materiaal en arbeid. Voor een definitieve offerte is een gedetailleerd overleg nodig.",
+      "projectTypes": [
+        {
+          "value": "table",
+          "label": "Eettafel / Salontafel",
+          "basePrice": 800
+        },
+        {
+          "value": "cabinetry",
+          "label": "Kasten op maat / Kledingkast",
+          "basePrice": 1200
+        },
+        {
+          "value": "shelving",
+          "label": "Boekenplanken / Opbergruimte",
+          "basePrice": 450
+        },
+        {
+          "value": "repair",
+          "label": "Restauratie / Reparatie",
+          "basePrice": 150
+        }
+      ],
+      "materials": [
+        {
+          "value": "pine",
+          "label": "Grenen / Naaldhout (Standaard)",
+          "multiplier": 1.0
+        },
+        {
+          "value": "oak",
+          "label": "Europees Eiken / Essen (Premium)",
+          "multiplier": 1.5
+        },
+        {
+          "value": "walnut",
+          "label": "Walnoot / Mahonie (Luxe)",
+          "multiplier": 2.0
+        }
+      ],
+      "sizes": [
+        {
+          "value": "small",
+          "label": "Klein (bijv. Salontafel)",
+          "multiplier": 1.0
+        },
+        {
+          "value": "medium",
+          "label": "Middelgroot (bijv. 4-persoons tafel)",
+          "multiplier": 1.5
+        },
+        {
+          "value": "large",
+          "label": "Groot (bijv. volledige kastenwand)",
+          "multiplier": 2.2
+        }
+      ]
+    }
+  },
+  "landing": {
+    "hero": {
+      "kicker": "Timmerman Daan",
+      "titleBase": "Gemaakt met",
+      "titleHighlight": "Passie & Precisie",
+      "description": "Op maat gemaakte houten meubels en inbouwkasten, handgemaakt door een Amsterdamse vakman. Ik werk aan projecten in de regio Amsterdam, Utrecht en omstreken.",
+      "buttons": {
+        "primary": { "label": "Bespreek je project", "href": "/contact" },
+        "secondary": { "label": "Bekijk mijn werk", "href": "/projects" }
+      },
+      "badge": {
+        "topText": "Vakmanschap",
+        "bottomText": "Amsterdam & Utrecht "
+      }
+    }
+  },
+  "portfolio": {
+    "title": "Mijn Portfolio",
+    "subtitle": "Een overzicht van mijn op maat gemaakte meubels en kasten, gerealiseerd in de regio.",
+    "backToAll": "Terug naar alle projecten",
+    "completed": "Voltooid:"
+  },
+  "home": {
+    "featuredWorks": "Uitgelicht Werk",
+    "viewAll": "Bekijk alle projecten"
+  },
+  "footer": {
+    "quickLinks": "Snelle Links",
+    "contact": "Contact"
+  }
+}
