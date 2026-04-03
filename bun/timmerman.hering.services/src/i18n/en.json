@@ -25,7 +25,9 @@
       "phone": "Phone Number (Optional)",
       "description": "Project Description",
       "placeholder": "Tell me about your vision, the dimensions, and where the project will be realized...",
-      "submit": "Submit Request"
+      "submit": "Submit Request",
+      "success": "Thank you! Your request has been sent successfully. I will be in touch soon.",
+      "error": "Oops! Something went wrong. Please try again later or contact me directly via email."
     },
     "estimator": {
       "title": "Project Estimator",

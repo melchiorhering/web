@@ -25,7 +25,9 @@
       "phone": "Telefoonnummer (Optioneel)",
       "description": "Projectbeschrijving",
       "placeholder": "Vertel mij over je visie, de afmetingen en waar het project gerealiseerd moet worden... ",
-      "submit": "Aanvraag Versturen"
+      "submit": "Aanvraag Versturen",
+      "success": "Bedankt! Je aanvraag is succesvol verzonden. Ik neem snel contact op.",
+      "error": "Oeps! Er ging iets mis. Probeer het later nog eens of neem rechtstreeks via e-mail contact met me op."
     },
     "estimator": {
       "title": "Prijsindicatie",
