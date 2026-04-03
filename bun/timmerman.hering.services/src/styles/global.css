@@ -1,28 +1,43 @@
 /* src/styles/global.css */
 @import "tailwindcss";
 
-/* Register your custom variables into Tailwind's theme */
 @theme {
-    --color-wood-bg: #fcfbf9;
-    --color-wood-text: #2c241b;
-    --color-wood-light: #d4a373;
-    --color-wood-base: #8b5a2b;
-    --color-wood-dark: #5c3a21;
-    --color-wood-accent: #3a5a40;
-
+    --color-wood-bg: var(--theme-bg);
+    --color-wood-text: var(--theme-text);
+    --color-wood-light: var(--theme-light);
+    --color-wood-base: var(--theme-base);
+    --color-wood-dark: var(--theme-dark);
+    --color-wood-accent: var(--theme-accent);
     --font-heading: "Georgia", serif;
-    /* Note: Tailwind uses system-ui for standard text by default, so we don't need to redefine it */
 }
 
-/* 2. Style standard HTML elements globally */
 @layer base {
+    /* 1. LIGHT MODE */
+    :root {
+        --theme-bg: #fcfbf9;
+        --theme-text: #2c241b;
+        --theme-light: #d4a373;
+        --theme-base: #8b5a2b;
+        --theme-dark: #5c3a21;
+        --theme-accent: #3a5a40;
+    }
+
+    /* 2. DARK MODE (Highly readable & high contrast) */
+    .dark {
+        --theme-bg: #1c1714; /* Deep warm espresso background */
+        --theme-text: #e8e0d5; /* Soft cream for highly readable normal text */
+        --theme-light: #423429; /* Visible but subtle borders/cards */
+        --theme-base: #eba765; /* Bright golden-wood for links/buttons to pop */
+        --theme-dark: #ffffff; /* Pure white for Headings to stand out! */
+        --theme-accent: #7ca88b; /* Readable soft green */
+    }
+
     html {
         scroll-behavior: smooth;
     }
 
     body {
-        /* @apply lets you use Tailwind classes inside standard CSS */
-        @apply bg-wood-bg text-wood-text antialiased min-h-screen w-full;
+        @apply bg-wood-bg text-wood-text antialiased min-h-screen w-full transition-colors duration-300;
     }
 
     h1,
@@ -31,10 +46,23 @@
     h4,
     h5,
     h6 {
-        @apply font-heading text-wood-dark;
+        @apply font-heading text-wood-dark transition-colors duration-300;
     }
 
     a {
         @apply text-wood-base transition-colors duration-200 hover:text-wood-dark;
+    }
+
+    :root .theme-icon-sun {
+        display: none;
+    }
+    :root .theme-icon-moon {
+        display: block;
+    }
+    .dark .theme-icon-sun {
+        display: block;
+    }
+    .dark .theme-icon-moon {
+        display: none;
     }
 }

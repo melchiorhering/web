@@ -56,12 +56,30 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || Astro.url);
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta property="og:image" content={new URL(image, Astro.url)} />
+
+        <script is:inline>
+            const getThemePreference = () => {
+                if (
+                    typeof localStorage !== "undefined" &&
+                    localStorage.getItem("theme")
+                ) {
+                    return localStorage.getItem("theme");
+                }
+                return window.matchMedia("(prefers-color-scheme: dark)").matches
+                    ? "dark"
+                    : "light";
+            };
+            const isDark = getThemePreference() === "dark";
+            document.documentElement.classList[isDark ? "add" : "remove"](
+                "dark",
+            );
+        </script>
     </head>
 
     <body class="flex flex-col min-h-screen">
         <Header />
 
-        <main class="max-w-300 mx-auto px-6 flex-1 w-full">
+        <main class="max-w-300 mx-auto flex-1 w-full">
             <slot />
         </main>
 

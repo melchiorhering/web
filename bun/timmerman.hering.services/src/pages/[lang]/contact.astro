@@ -2,16 +2,20 @@
 // src/pages/[lang]/contact.astro
 import Layout from "@layouts/Layout.astro";
 import ContactForm from "@sections/ContactForm.astro";
+import { useTranslations } from "@i18n/utils";
 
-// ADD THIS EXPORT: Tell Astro to build both languages
 export function getStaticPaths() {
     return [{ params: { lang: "en" } }, { params: { lang: "nl" } }];
 }
+
+const { lang } = Astro.params;
+const t = useTranslations(lang as any);
 ---
 
 <Layout
-    title="Get a Quote"
-    description="Contact Timmerman Hering for a custom woodworking quote."
+    title={t("site.callToAction.label") || "Get a Quote"}
+    description={t("site.description") ||
+        "Contact Timmerman for a custom woodworking quote."}
 >
     <ContactForm />
 </Layout>

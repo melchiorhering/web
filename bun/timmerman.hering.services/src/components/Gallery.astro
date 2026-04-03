@@ -8,10 +8,8 @@ interface Props {
 }
 
 const { projects } = Astro.props;
-
-// Load all images eagerly
 const allImages = import.meta.glob<{ default: ImageMetadata }>(
-    "/src/assets/images/projects/**/*.{jpeg,jpg,png,webp}",
+    "/src/assets/projects/**/*.{jpeg,jpg,png,webp}",
     { eager: true },
 );
 ---
@@ -19,11 +17,11 @@ const allImages = import.meta.glob<{ default: ImageMetadata }>(
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
     {
         projects.map((project) => {
-            // 1. Separate the language ('nl') from the folder name ('bank-simpel')
+            // Because project.id is "nl/bank-simpel", slug becomes "bank-simpel"
             const [lang, ...slugParts] = project.id.split("/");
             const slug = slugParts.join("/");
 
-            // 2. Search for the image using ONLY the slug
+            // This will look for /src/assets/projects/bank-simpel/cover.webp
             const coverPath = Object.keys(allImages).find((path) =>
                 path.includes(`/projects/${slug}/cover.`),
             );
@@ -39,7 +37,7 @@ const allImages = import.meta.glob<{ default: ImageMetadata }>(
                             <Image
                                 src={coverImage}
                                 alt={project.data.title}
-                                class="object-cover w-full h-full transition-transform duration-700 group-hover:scale-105"
+                                class="object-cover w-full h-full transition-transform duration-700 group-hover:scale-[1.02]"
                             />
                         )}
                     </div>

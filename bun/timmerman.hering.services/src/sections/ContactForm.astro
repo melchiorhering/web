@@ -9,12 +9,12 @@ const t = useTranslations(lang);
 const contactData = t("contact") as any;
 ---
 
-<Section class="pt-10 pb-20 lg:pt-16 lg:pb-24">
+<Section class="pt-10 pb-20 lg:pt-12 lg:pb-10">
     <div class="mb-6 text-center">
-        <h1 class="text-5xl font-heading text-wood-dark mb-4">
+        <h1 class="text-4xl font-heading text-wood-dark mb-4">
             {t("contact.title") || "Let's Build Something"}
         </h1>
-        <p class="text-lg text-wood-text max-w-2xl mx-auto">
+        <p class="text-md text-wood-text max-w-2xl mx-auto">
             {
                 t("contact.subtitle") ||
                     "Fill out the details below to give us an idea of your project. The estimator will provide a rough starting price, and we'll be in touch to discuss the exact details."
@@ -25,10 +25,10 @@ const contactData = t("contact") as any;
     <form
         action="#"
         method="POST"
-        class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start"
+        class="grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-10 items-start"
     >
         <div
-            class="space-y-5 bg-white p-6 lg:p-8 rounded-md shadow-sm border border-wood-light/20"
+            class="space-y-5 bg-wood-bg p-6 lg:p-8 rounded-md shadow-sm border-2 border-wood-base/20"
         >
             <h2 class="text-2xl font-heading text-wood-dark mb-4">
                 {t("contact.formTitle") || "Your Details"}
@@ -46,7 +46,7 @@ const contactData = t("contact") as any;
                         id="name"
                         name="name"
                         required
-                        class="w-full px-4 py-2.5 rounded-sm border border-wood-light/50 focus:border-wood-base focus:ring-1 focus:ring-wood-base outline-none transition-colors bg-wood-bg/50"
+                        class="w-full px-4 py-2.5 rounded-sm border border-wood-light/50 focus:border-wood-base focus:ring-1 focus:ring-wood-base outline-none transition-colors bg-wood-bg/50 text-wood-text placeholder-wood-text/40"
                     />
                 </div>
                 <div>
@@ -60,7 +60,7 @@ const contactData = t("contact") as any;
                         id="email"
                         name="email"
                         required
-                        class="w-full px-4 py-2.5 rounded-sm border border-wood-light/50 focus:border-wood-base focus:ring-1 focus:ring-wood-base outline-none transition-colors bg-wood-bg/50"
+                        class="w-full px-4 py-2.5 rounded-sm border border-wood-light/50 focus:border-wood-base focus:ring-1 focus:ring-wood-base outline-none transition-colors bg-wood-bg/50 text-wood-text placeholder-wood-text/40"
                     />
                 </div>
             </div>
@@ -77,7 +77,7 @@ const contactData = t("contact") as any;
                     type="tel"
                     id="phone"
                     name="phone"
-                    class="w-full px-4 py-2.5 rounded-sm border border-wood-light/50 focus:border-wood-base focus:ring-1 focus:ring-wood-base outline-none transition-colors bg-wood-bg/50"
+                    class="w-full px-4 py-2.5 rounded-sm border border-wood-light/50 focus:border-wood-base focus:ring-1 focus:ring-wood-base outline-none transition-colors bg-wood-bg/50 text-wood-text placeholder-wood-text/40"
                 />
             </div>
 
@@ -96,7 +96,7 @@ const contactData = t("contact") as any;
                     required
                     placeholder={t("contact.form.placeholder") ||
                         "Tell us about your vision, dimensions, and where it will go..."}
-                    class="w-full px-4 py-2.5 rounded-sm border border-wood-light/50 focus:border-wood-base focus:ring-1 focus:ring-wood-base outline-none transition-colors bg-wood-bg/50 resize-y"
+                    class="w-full px-4 py-2.5 rounded-sm border border-wood-light/50 focus:border-wood-base focus:ring-1 focus:ring-wood-base outline-none transition-colors bg-wood-bg/50 text-wood-text placeholder-wood-text/40 resize-y"
                 ></textarea>
             </div>
         </div>
@@ -129,7 +129,7 @@ const contactData = t("contact") as any;
                     <select
                         id="project-type"
                         name="project_type"
-                        class="w-full px-4 py-2.5 rounded-sm border border-wood-light/50 focus:border-wood-base outline-none bg-white estimator-input"
+                        class="w-full px-4 py-2.5 rounded-sm border border-wood-light/50 focus:border-wood-base outline-none bg-wood-bg text-wood-text estimator-input"
                     >
                         {
                             contactData.estimator?.projectTypes?.map(
@@ -158,7 +158,7 @@ const contactData = t("contact") as any;
                     <select
                         id="material"
                         name="material"
-                        class="w-full px-4 py-2.5 rounded-sm border border-wood-light/50 focus:border-wood-base outline-none bg-white estimator-input"
+                        class="w-full px-4 py-2.5 rounded-sm border border-wood-light/50 focus:border-wood-base outline-none bg-wood-bg text-wood-text estimator-input"
                     >
                         {
                             contactData.estimator?.materials?.map(
@@ -187,7 +187,7 @@ const contactData = t("contact") as any;
                     <select
                         id="size"
                         name="size"
-                        class="w-full px-4 py-2.5 rounded-sm border border-wood-light/50 focus:border-wood-base outline-none bg-white estimator-input"
+                        class="w-full px-4 py-2.5 rounded-sm border border-wood-light/50 focus:border-wood-base outline-none bg-wood-bg text-wood-text estimator-input"
                     >
                         {
                             contactData.estimator?.sizes?.map((size: any) => (

@@ -6,11 +6,12 @@ import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
 import { getCollection, type CollectionEntry } from "astro:content";
 
+import { useTranslations, useTranslatedPath } from "@i18n/utils";
+
 export async function getStaticPaths() {
     const projects = await getCollection("projects");
 
     return projects.map((project: CollectionEntry<"projects">) => {
-        // Split "en/bank-simpel" into lang="en" and slug="bank-simpel"
         const [lang, ...slugParts] = project.id.split("/");
         const slug = slugParts.join("/");
 
@@ -23,20 +24,35 @@ export async function getStaticPaths() {
 
 const { project } = Astro.props;
 
-// 1. Separate the language from the folder name
 const [lang, ...slugParts] = project.id.split("/");
 const slug = slugParts.join("/");
+
+const t = useTranslations(lang as any);
+const translatePath = useTranslatedPath(lang as any);
+
+// --- ADDED: Smart fallbacks that check if the key was returned ---
+const rawBackText = t("portfolio.backToAll");
+const backText =
+    rawBackText === "portfolio.backToAll"
+        ? "Back to all projects"
+        : rawBackText;
+
+const rawCompletedText = t("portfolio.completed");
+const completedText =
+    rawCompletedText === "portfolio.completed"
+        ? "Completed:"
+        : rawCompletedText;
+// -----------------------------------------------------------------
 
 let finalCoverImage = project.data.coverImage;
 let finalGalleryImages = project.data.gallery || [];
 
 if (!finalCoverImage && finalGalleryImages.length === 0) {
     const allLocalImages = import.meta.glob<{ default: ImageMetadata }>(
-        "/src/assets/images/projects/**/*.{jpeg,jpg,png,webp}",
+        "/src/assets/projects/**/*.{jpeg,jpg,png,webp}",
         { eager: true },
     );
 
-    // 2. Search using ONLY the slug
     const localPaths = Object.keys(allLocalImages).filter((path) =>
         path.includes(`/projects/${slug}/`),
     );
@@ -52,7 +68,6 @@ if (!finalCoverImage && finalGalleryImages.length === 0) {
     );
 }
 
-// Combine the cover and gallery images for the top slider
 const carouselImages = finalCoverImage
     ? [finalCoverImage, ...finalGalleryImages]
     : finalGalleryImages;
@@ -61,10 +76,10 @@ const carouselImages = finalCoverImage
 <Layout title={project.data.title} description={project.data.description}>
     <Section>
         <a
-            href="/#gallery"
+            href={translatePath("/projects")}
             class="text-wood-base hover:text-wood-dark mb-6 inline-block font-medium"
         >
-            &larr; Back to all projects
+            &larr; {backText}
         </a>
 
         <div class="mb-8">
@@ -77,7 +92,8 @@ const carouselImages = finalCoverImage
                 <span
                     class="font-medium text-wood-text/60 text-sm sm:text-base mt-1 sm:mt-0 whitespace-nowrap"
                 >
-                    Completed: {project.data.completionYear}
+                    {completedText}
+                    {project.data.completionYear}
                 </span>
             </div>
 
@@ -90,10 +106,7 @@ const carouselImages = finalCoverImage
         {
             carouselImages.length > 0 && (
                 <div class="relative w-full rounded-md overflow-hidden mb-16 bg-wood-light/5 border border-wood-light/20 shadow-sm group/slider">
-                    <div
-                        id="cover-slider-track"
-                        class="flex transition-transform duration-500 ease-out h-full"
-                    >
+                    <div id="cover-slider-track" class="flex h-full">
                         {carouselImages.map((img, index) => (
                             <div
                                 class="w-full shrink-0 flex justify-center py-8 relative group"
@@ -102,12 +115,12 @@ const carouselImages = finalCoverImage
                                 <Image
                                     src={img}
                                     alt={`View ${index + 1} of ${project.data.title}`}
-                                    class="w-full max-w-250 h-auto max-h-[65vh] object-contain rounded-sm drop-shadow-md cursor-pointer lightbox-trigger transition-transform duration-700 group-hover:scale-[1.02]"
+                                    class="w-full max-w-250 h-auto max-h-[65vh] object-contain rounded-sm drop-shadow-md cursor-pointer lightbox-trigger transition-transform duration-700 group-hover:scale-[1.01]"
                                     width={1200}
                                     height={675}
                                 />
                                 <div class="absolute inset-0 pointer-events-none flex items-center justify-center transition-all duration-300 opacity-0 group-hover:opacity-100 group-hover:bg-wood-dark/10">
-                                    <div class="bg-white/95 text-wood-dark p-4 rounded-full shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                                    <div class="bg-wood-bg/95 text-wood-dark p-4 rounded-full shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
                                         <Icon
                                             name="lucide:zoom-in"
                                             class="w-6 h-6"
@@ -122,7 +135,7 @@ const carouselImages = finalCoverImage
                         <>
                             <button
                                 id="slider-prev"
-                                class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-wood-dark p-3 rounded-full shadow-md opacity-0 group-hover/slider:opacity-100 transition-all duration-300 hover:scale-110 focus:outline-none"
+                                class="absolute left-4 top-1/2 -translate-y-1/2 bg-wood-bg/90 hover:bg-wood-bg text-wood-dark p-3 rounded-full shadow-md opacity-0 group-hover/slider:opacity-100 transition-all duration-300 hover:scale-110 focus:outline-none"
                                 aria-label="Previous image"
                             >
                                 <Icon
@@ -132,7 +145,7 @@ const carouselImages = finalCoverImage
                             </button>
                             <button
                                 id="slider-next"
-                                class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-wood-dark p-3 rounded-full shadow-md opacity-0 group-hover/slider:opacity-100 transition-all duration-300 hover:scale-110 focus:outline-none"
+                                class="absolute right-4 top-1/2 -translate-y-1/2 bg-wood-bg/90 hover:bg-wood-bg text-wood-dark p-3 rounded-full shadow-md opacity-0 group-hover/slider:opacity-100 transition-all duration-300 hover:scale-110 focus:outline-none"
                                 aria-label="Next image"
                             >
                                 <Icon
@@ -177,7 +190,7 @@ const carouselImages = finalCoverImage
                                     height={800}
                                 />
                                 <div class="absolute inset-0 pointer-events-none flex items-center justify-center transition-all duration-300 opacity-0 group-hover:opacity-100 group-hover:bg-wood-dark/20">
-                                    <div class="bg-white/95 text-wood-dark p-3 rounded-full shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                                    <div class="bg-wood-bg/95 text-wood-dark p-3 rounded-full shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
                                         <Icon
                                             name="lucide:zoom-in"
                                             class="w-5 h-5"
@@ -246,10 +259,16 @@ const carouselImages = finalCoverImage
         const lbPrevBtn = document.getElementById("lightbox-prev");
         const lbNextBtn = document.getElementById("lightbox-next");
 
-        // Turn the NodeList into a true Array so we can navigate by index
+        // Grab all real triggers BEFORE cloning happens
         const triggers = Array.from(
             document.querySelectorAll(".lightbox-trigger"),
         ) as HTMLImageElement[];
+
+        // Add a data attribute so clones know which real index they represent
+        triggers.forEach((trigger, idx) => {
+            trigger.setAttribute("data-lb-index", idx.toString());
+        });
+
         let currentLightboxIndex = 0;
 
         const openLightbox = (index: number) => {
@@ -268,6 +287,21 @@ const carouselImages = finalCoverImage
             }, 10);
         };
 
+        // Use Event Delegation so clicked cloned images still work
+        document.addEventListener("click", (e) => {
+            const target = e.target as HTMLElement;
+            const trigger = target.closest(
+                ".lightbox-trigger",
+            ) as HTMLImageElement;
+            if (trigger) {
+                const idx = parseInt(
+                    trigger.getAttribute("data-lb-index") || "0",
+                    10,
+                );
+                openLightbox(idx);
+            }
+        });
+
         const changeLightboxImage = (direction: "next" | "prev") => {
             if (direction === "next") {
                 currentLightboxIndex =
@@ -278,7 +312,6 @@ const carouselImages = finalCoverImage
                     triggers.length;
             }
 
-            // Fast fade effect between images
             dialogImg.classList.remove("opacity-100", "scale-100");
             dialogImg.classList.add("opacity-0", "scale-95");
 
@@ -293,10 +326,6 @@ const carouselImages = finalCoverImage
         };
 
         if (dialog && dialogImg) {
-            triggers.forEach((trigger, idx) => {
-                trigger.addEventListener("click", () => openLightbox(idx));
-            });
-
             const closeLightbox = () => {
                 dialogImg.classList.remove("scale-100", "opacity-100");
                 dialogImg.classList.add("scale-95", "opacity-0");
@@ -324,57 +353,95 @@ const carouselImages = finalCoverImage
             });
         }
 
-        // --- 2. SLIDER LOGIC ---
+        // --- 2. INFINITE SLIDER LOGIC ---
         const track = document.getElementById("cover-slider-track");
         const prevBtn = document.getElementById("slider-prev");
         const nextBtn = document.getElementById("slider-next");
         const dots = document.querySelectorAll(".slider-dot");
 
-        let currentSlide = 0;
-        let totalSlides = dots.length;
+        if (track && dots.length > 1) {
+            // 1. Clone the first and last slides
+            const slides = Array.from(track.children);
+            const firstClone = slides[0].cloneNode(true);
+            const lastClone = slides[slides.length - 1].cloneNode(true);
 
-        const updateSlider = () => {
-            if (!track) return;
+            // 2. Add them to the track
+            track.appendChild(firstClone);
+            track.insertBefore(lastClone, slides[0]);
+
+            // 3. Setup state
+            let currentSlide = 1; // Start at index 1 because index 0 is now the lastClone
+            const realTotalSlides = dots.length;
+            let isAnimating = false;
+
+            // Set initial position (no animation)
             track.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+            const updateSliderDots = () => {
+                // Map the cloned slides back to the real dot indices
+                let dotIndex = currentSlide - 1;
+                if (currentSlide === 0) dotIndex = realTotalSlides - 1;
+                if (currentSlide === realTotalSlides + 1) dotIndex = 0;
+
+                dots.forEach((dot, idx) => {
+                    if (idx === dotIndex) {
+                        dot.classList.add("bg-wood-dark", "scale-110");
+                        dot.classList.remove("bg-wood-dark/30");
+                    } else {
+                        dot.classList.remove("bg-wood-dark", "scale-110");
+                        dot.classList.add("bg-wood-dark/30");
+                    }
+                });
+            };
+
+            const moveToSlide = (index: number) => {
+                if (isAnimating) return;
+                isAnimating = true;
+                currentSlide = index;
+                track.style.transition = "transform 0.5s ease-out";
+                track.style.transform = `translateX(-${currentSlide * 100}%)`;
+                updateSliderDots();
+            };
+
+            nextBtn?.addEventListener("click", () =>
+                moveToSlide(currentSlide + 1),
+            );
+            prevBtn?.addEventListener("click", () =>
+                moveToSlide(currentSlide - 1),
+            );
+
             dots.forEach((dot, idx) => {
-                if (idx === currentSlide) {
-                    dot.classList.add("bg-wood-dark", "scale-110");
-                    dot.classList.remove("bg-wood-dark/30");
-                } else {
-                    dot.classList.remove("bg-wood-dark", "scale-110");
-                    dot.classList.add("bg-wood-dark/30");
+                dot.addEventListener("click", () => moveToSlide(idx + 1)); // Dots map to 1-indexed real slides
+            });
+
+            // 4. The Magic Jump (runs after the slide animation finishes)
+            track.addEventListener("transitionend", () => {
+                isAnimating = false;
+
+                // If we slid backwards to the cloned last slide, instantly jump to the real last slide
+                if (currentSlide === 0) {
+                    track.style.transition = "none";
+                    currentSlide = realTotalSlides;
+                    track.style.transform = `translateX(-${currentSlide * 100}%)`;
+                }
+
+                // If we slid forwards to the cloned first slide, instantly jump to the real first slide
+                if (currentSlide === realTotalSlides + 1) {
+                    track.style.transition = "none";
+                    currentSlide = 1;
+                    track.style.transform = `translateX(-${currentSlide * 100}%)`;
                 }
             });
-        };
 
-        if (track && totalSlides > 0) {
-            nextBtn?.addEventListener("click", () => {
-                currentSlide = (currentSlide + 1) % totalSlides;
-                updateSlider();
-            });
-
-            prevBtn?.addEventListener("click", () => {
-                currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-                updateSlider();
-            });
-
-            dots.forEach((dot, idx) => {
-                dot.addEventListener("click", () => {
-                    currentSlide = idx;
-                    updateSlider();
-                });
-            });
-            updateSlider();
+            updateSliderDots();
         }
 
         // --- 3. GLOBAL KEYBOARD NAVIGATION ---
         document.addEventListener("keydown", (e) => {
             if (dialog && dialog.open) {
-                // If Lightbox is open, navigate the Lightbox Gallery
                 if (e.key === "ArrowRight") changeLightboxImage("next");
                 if (e.key === "ArrowLeft") changeLightboxImage("prev");
-            } else if (track && totalSlides > 1) {
-                // If Lightbox is closed, navigate the inline Slider
+            } else if (track && dots.length > 1) {
                 if (e.key === "ArrowRight") nextBtn?.click();
                 if (e.key === "ArrowLeft") prevBtn?.click();
             }
