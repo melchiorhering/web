@@ -2,10 +2,7 @@
   "site": {
     "brandName": "Timmerman",
     "description": "Op maat gemaakte houten meubels en inbouwkasten, met passie en precisie vervaardigd door een Amsterdamse vakman. Werkzaam in Amsterdam, Utrecht en omstreken.",
-    "navLinks": [
-      { "label": "Mijn Werk", "href": "/projegcts" },
-      { "label": "Over Mij", "href": "/#about" }
-    ],
+    "navLinks": [{ "label": "Portofolio", "href": "/projects" }],
     "callToAction": {
       "label": "Offerte aanvragen",
       "href": "/contact"
@@ -103,7 +100,7 @@
       "description": "Op maat gemaakte houten meubels en inbouwkasten, handgemaakt door een Amsterdamse vakman. Ik werk aan projecten in de regio Amsterdam, Utrecht en omstreken.",
       "buttons": {
         "primary": { "label": "Bespreek je project", "href": "/contact" },
-        "secondary": { "label": "Bekijk mijn werk", "href": "/projects" }
+        "secondary": { "label": "Bekijk mijn portofolio", "href": "/projects" }
       },
       "badge": {
         "topText": "Vakmanschap",
