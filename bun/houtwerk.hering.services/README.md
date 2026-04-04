@@ -2,7 +2,7 @@
 
 ## Deployment
 
-For this webiste we are using statichost.eu
+For this website we are using statichost.eu
 
 ## 🧞 Commands
 
