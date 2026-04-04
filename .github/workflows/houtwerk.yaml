@@ -1,4 +1,4 @@
-name: Houtwerk Deploy
+name: Deploy `houtwerk.hering.services`
 
 on:
   push:
