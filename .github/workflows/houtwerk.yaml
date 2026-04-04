@@ -19,5 +19,8 @@ jobs:
 
       - name: Upload to statichost.eu
         uses: ./.github/actions/statichost
-
-      # Add your deploy step here...
+        with:
+          api-token: ${{ secrets.STATICHOST_API_KEY }}
+          site-name: "houtwerk"
+          # Astro outputs the built site to the 'dist' folder by default
+          path: "bun/houtwerk.hering.services/dist"
