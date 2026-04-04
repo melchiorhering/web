@@ -1,0 +1,25 @@
+name: "Bun Build Astro"
+description: "Installs dependencies and builds an Astro site via Bun"
+
+inputs:
+  working-directory:
+    description: "Path to the project directory"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Setup Bun
+      uses: oven-sh/setup-bun@v2
+      with:
+        bun-version: latest
+
+    - name: Install Dependencies
+      run: bun install
+      shell: bash
+      working-directory: ${{ inputs.project-path }}
+
+    - name: Build Astro Site
+      run: bun run build
+      shell: bash
+      working-directory: ${{ inputs.project-path }}

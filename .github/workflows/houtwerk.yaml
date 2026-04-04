@@ -1,0 +1,23 @@
+name: Houtwerk Deploy
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "bun/houtwerk.hering.services/**"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Build houtwerk.hering.services
+        uses: ./.github/actions/bun/build-astro
+        with:
+          working-directory: "bun/houtwerk.hering.services"
+
+      - name: Upload to statichost.eu
+        uses: ./.github/actions/statichost
+
+      # Add your deploy step here...
