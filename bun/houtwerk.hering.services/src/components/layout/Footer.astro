@@ -13,6 +13,10 @@ const translatePath = useTranslatedPath(lang);
 
 const siteData = t("site") as any;
 const contactData = t("contact") as any;
+
+// Dynamically grab the current domain and URL
+const displayDomain = Astro.url.hostname;
+const siteOrigin = Astro.url.origin;
 ---
 
 <footer
@@ -69,15 +73,24 @@ const contactData = t("contact") as any;
             >
                 {t("footer.contact") || "Contact"}
             </h4>
+
             <address class="not-italic text-sm text-wood-text/80 space-y-2">
-                <p>{contactData.city}, {contactData.region}</p>
-                <p>{contactData.country}</p>
-                <p class="pt-2">
+                <p class="font-medium text-wood-dark">{siteData.ownerName}</p>
+                <p>{siteData.brandName}</p>
+                <p>
                     <a
                         href={`mailto:${contactData.email}`}
                         class="hover:text-wood-base transition-colors"
                     >
                         {contactData.email}
+                    </a>
+                </p>
+                <p>
+                    <a
+                        href={siteOrigin}
+                        class="hover:text-wood-base transition-colors"
+                    >
+                        {displayDomain}
                     </a>
                 </p>
             </address>
@@ -88,6 +101,6 @@ const contactData = t("contact") as any;
         class="max-w-300 mx-auto px-6 mt-16 pt-8 border-t border-wood-light/20 text-center text-sm text-wood-text/60"
     >
         &copy; {currentYear}
-        {siteData.brandName}. All rights reserved.
+        {siteData.brandName}. {t("footer.rights") || "All rights reserved."}
     </div>
 </footer>

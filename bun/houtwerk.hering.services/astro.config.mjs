@@ -9,7 +9,7 @@ import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://timmerman.hering.services",
+  site: "https://houtwerk.hering.services",
   vite: {
     plugins: [tailwindcss()],
   },

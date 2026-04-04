@@ -1,18 +1,17 @@
 {
   "site": {
-    "brandName": "Timmerman",
+    "brandName": "Woodwork",
+    "ownerName": "Daan Hering",
+    "domain": "houtwerk.hering.services",
     "description": "Bespoke wooden furniture and custom cabinetry, crafted with passion and precision by an Amsterdam artisan. Working in Amsterdam, Utrecht, and the surrounding areas.",
-    "navLinks": [
-      { "label": "My Work", "href": "/projects" },
-      { "label": "About Me", "href": "/#about" }
-    ],
+    "navLinks": [{ "label": "Portfolio", "href": "/projects" }],
     "callToAction": {
       "label": "Get a Quote",
       "href": "/contact"
     }
   },
   "contact": {
-    "email": "hello@timmermanhering.services",
+    "email": "daan@hering.services",
     "city": "Amsterdam / Utrecht",
     "region": "Randstad",
     "country": "Netherlands",
@@ -22,9 +21,9 @@
     "form": {
       "name": "Full Name",
       "email": "Email Address",
-      "phone": "Phone Number (Optional)",
+      "phone": "Phone Number",
       "description": "Project Description",
-      "placeholder": "Tell me about your vision, the dimensions, and where the project will be realized...",
+      "placeholder": "Tell me about your vision, the dimensions, and where the project will be realized... ",
       "submit": "Submit Request",
       "success": "Thank you! Your request has been sent successfully. I will be in touch soon.",
       "error": "Oops! Something went wrong. Please try again later or contact me directly via email."
@@ -97,23 +96,23 @@
   },
   "landing": {
     "hero": {
-      "kicker": "Timmerman Daan",
+      "kicker": "Carpenter Daan",
       "titleBase": "Made with",
       "titleHighlight": "Passion & Precision",
       "description": "Bespoke wooden furniture and custom cabinetry, handcrafted by an Amsterdam artisan. I work on projects in the Amsterdam, Utrecht, and surrounding regions.",
       "buttons": {
         "primary": { "label": "Discuss your project", "href": "/contact" },
-        "secondary": { "label": "View my work", "href": "/projects" }
+        "secondary": { "label": "View my portfolio", "href": "/projects" }
       },
       "badge": {
         "topText": "Craftsmanship",
-        "bottomText": "Amsterdam & Utrecht"
+        "bottomText": "Amsterdam & Utrecht "
       }
     }
   },
   "portfolio": {
     "title": "My Portfolio",
-    "subtitle": "An overview of my custom-made furniture and cabinetry, realized in the region.",
+    "subtitle": "An overview of my custom-made furniture, cabinetry, and other woodwork.",
     "backToAll": "Back to all projects",
     "completed": "Completed:"
   },
@@ -123,6 +122,7 @@
   },
   "footer": {
     "quickLinks": "Quick Links",
-    "contact": "Contact"
+    "contact": "Contact",
+    "rights": "All rights reserved."
   }
 }

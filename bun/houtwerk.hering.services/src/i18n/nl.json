@@ -1,6 +1,8 @@
 {
   "site": {
-    "brandName": "Timmerman",
+    "brandName": "Houtwerk",
+    "ownerName": "Daan Hering",
+    "domain": "houtwerk.hering.services",
     "description": "Op maat gemaakte houten meubels en inbouwkasten, met passie en precisie vervaardigd door een Amsterdamse vakman. Werkzaam in Amsterdam, Utrecht en omstreken.",
     "navLinks": [{ "label": "Portofolio", "href": "/projects" }],
     "callToAction": {
@@ -9,7 +11,7 @@
     }
   },
   "contact": {
-    "email": "timmerman.hering.services",
+    "email": "daan@hering.services",
     "city": "Amsterdam / Utrecht",
     "region": "Randstad",
     "country": "Nederland",
@@ -120,6 +122,7 @@
   },
   "footer": {
     "quickLinks": "Snelle Links",
-    "contact": "Contact"
+    "contact": "Contact",
+    "rights": "Alle rechten voorbehouden."
   }
 }
