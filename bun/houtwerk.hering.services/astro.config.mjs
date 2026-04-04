@@ -20,7 +20,7 @@ export default defineConfig({
     sitemap(),
   ],
   image: {
-    domains: ["your-bucket-name.s3.eu-central-1.amazonaws.com"],
+    // domains: ["your-bucket-name.s3.eu-central-1.amazonaws.com"],
     // Or for something like Supabase: ["abcdefgh.supabase.co"]
   },
   server: {
