@@ -1,0 +1,3 @@
+image: oven/bun:latest
+command: bun install && bun run build
+public: dist
