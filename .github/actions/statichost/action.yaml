@@ -1,5 +1,5 @@
 name: "Deploy to StaticHost.eu"
-description: "Deploy a static site to StaticHost.eu by zipping and uploading a directory"
+description: "Deploy a static site to StaticHost.eu using the official CLI tool"
 branding:
   icon: "upload-cloud"
   color: "blue"
@@ -21,6 +21,7 @@ runs:
     - name: Deploy to StaticHost.eu
       shell: bash
       env:
+        # The shcli bash script looks for this exact environment variable to authenticate
         STATICHOST_APIKEY: ${{ inputs.api-token }}
       run: |
         set -euo pipefail
@@ -33,30 +34,13 @@ runs:
           exit 1
         fi
 
-        BUILDER_HOST="${STATICHOST_BUILDER:-https://builder.statichost.eu}"
+        echo "Downloading the official StaticHost CLI tool..."
+        curl -s -o shcli https://www.statichost.eu/shcli
+        chmod +x shcli
 
-        TEMP_ZIP="$(mktemp).zip"
-        trap "rm -f $TEMP_ZIP" EXIT
-
-        echo "Zipping directory '$DIRECTORY'..."
-        cd "$DIRECTORY"
-        zip -qr "$TEMP_ZIP" .
-
-        echo "Uploading to $BUILDER_HOST/$SITE_NAME/drop..."
-        RESPONSE=$(curl -s \
-          -X POST "$BUILDER_HOST/$SITE_NAME/drop" \
-          -H "Authorization: Bearer $STATICHOST_APIKEY" \
-          -H "Content-Type: application/zip" \
-          -H "Accept: text/plain" \
-          --data-binary "@$TEMP_ZIP")
-
-        CLEAN_RESPONSE=$(echo "$RESPONSE" | sed 's/<[^>]*>//g' | sed 's/^ *//;/^$/d')
-        echo "$CLEAN_RESPONSE"
-
-        if echo "$CLEAN_RESPONSE" | grep -qi "ERROR"; then
-          echo "::error::Deployment failed — server reported an error (see output above)"
-          exit 1
-        fi
+        echo "Uploading directory '$DIRECTORY' to '$SITE_NAME'..."
+        # The shcli script automatically handles the zipping and uploading
+        ./shcli "$SITE_NAME" "$DIRECTORY"
 
         echo ""
         echo "Upload complete!"
