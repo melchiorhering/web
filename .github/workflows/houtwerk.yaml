@@ -23,4 +23,13 @@ jobs:
           api-token: ${{ secrets.STATICHOST_API_KEY }}
           site-name: "houtwerk"
           # Astro outputs the built site to the 'dist' folder by default
-          path: "bun/houtwerk.hering.services/dist"
+          path: "bun/houtwerk.hering.services/dist/"
+
+      # Add this right after your Upload to statichost.eu step
+      - name: Upload Artifact for Debugging
+        uses: actions/upload-artifact@v7
+        with:
+          name: built-site-zip
+          # We need to temporarily tell our script not to delete the zip,
+          # or we just upload the raw dist folder to look at the files!
+          path: bun/houtwerk.hering.services/dist/
