@@ -1,5 +1,9 @@
 # timmerman.hering.services
 
+## Deployment
+
+For this webiste we are using statichost.eu
+
 ## 🧞 Commands
 
 All commands are run from the root of the project, from a terminal:
