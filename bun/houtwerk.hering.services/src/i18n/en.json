@@ -36,6 +36,8 @@
       "sizeLabel": "Approximate Size",
       "estimateLabel": "Estimated Starting Price",
       "disclaimer": "*This is a rough baseline estimate for materials and labor. A final quote requires a detailed consultation.",
+      "customOption": "Custom / Other",
+      "customPlaceholder": "Please describe your custom request",
       "projectTypes": [
         {
           "value": "table",

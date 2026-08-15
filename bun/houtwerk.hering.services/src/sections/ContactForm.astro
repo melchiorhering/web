@@ -7,14 +7,19 @@ import { getLangFromUrl, useTranslations } from "@i18n/utils";
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const contactData = t("contact") as any;
+
+const customOptionLabel =
+    contactData?.estimator?.customOption || "Custom / Other";
+const customPlaceholder =
+    contactData?.estimator?.customPlaceholder || "Please describe";
 ---
 
 <Section class="pt-10 pb-20 lg:pt-12 lg:pb-10">
-    <div class="mb-6 text-center">
-        <h1 class="text-4xl font-heading text-wood-dark mb-4">
+    <div class="mb-2 text-center">
+        <h1 class="text-4xl font-heading text-wood-dark mb-2">
             {t("contact.title") || "Let's Build Something"}
         </h1>
-        <p class="text-md text-wood-text max-w-2xl mx-auto">
+        <p class="text-md text-wood-text mx-auto">
             {
                 t("contact.subtitle") ||
                     "Fill out the details below to give us an idea of your project. The estimator will provide a rough starting price, and we'll be in touch to discuss the exact details."
@@ -159,7 +164,17 @@ const contactData = t("contact") as any;
                                 ),
                             )
                         }
+                        <option value="Custom" data-base="0"
+                            >{customOptionLabel}</option
+                        >
                     </select>
+                    <input
+                        type="text"
+                        id="project-type-custom"
+                        name="Custom Project Type"
+                        placeholder={customPlaceholder}
+                        class="hidden mt-2 w-full px-4 py-2.5 rounded-sm border border-wood-light/50 focus:border-wood-base outline-none bg-wood-bg/50 text-wood-text"
+                    />
                 </div>
 
                 <div>
@@ -188,7 +203,17 @@ const contactData = t("contact") as any;
                                 ),
                             )
                         }
+                        <option value="Custom" data-mult="1"
+                            >{customOptionLabel}</option
+                        >
                     </select>
+                    <input
+                        type="text"
+                        id="material-custom"
+                        name="Custom Material"
+                        placeholder={customPlaceholder}
+                        class="hidden mt-2 w-full px-4 py-2.5 rounded-sm border border-wood-light/50 focus:border-wood-base outline-none bg-wood-bg/50 text-wood-text"
+                    />
                 </div>
 
                 <div>
@@ -215,7 +240,17 @@ const contactData = t("contact") as any;
                                 </option>
                             ))
                         }
+                        <option value="Custom" data-mult="1"
+                            >{customOptionLabel}</option
+                        >
                     </select>
+                    <input
+                        type="text"
+                        id="size-custom"
+                        name="Custom Size"
+                        placeholder={customPlaceholder}
+                        class="hidden mt-2 w-full px-4 py-2.5 rounded-sm border border-wood-light/50 focus:border-wood-base outline-none bg-wood-bg/50 text-wood-text"
+                    />
                 </div>
             </div>
 
@@ -231,9 +266,12 @@ const contactData = t("contact") as any;
                 <div
                     class="text-4xl lg:text-5xl font-heading text-wood-dark flex items-baseline gap-2"
                 >
-                    <span>€</span>
+                    <span id="price-currency">€</span>
                     <span id="price-display">0</span>
-                    <span class="text-xl text-wood-text/60 font-sans">+</span>
+                    <span
+                        id="price-plus"
+                        class="text-xl text-wood-text/60 font-sans">+</span
+                    >
                 </div>
                 <p class="text-xs text-wood-text/60 mt-2 mb-5 leading-relaxed">
                     {
@@ -313,7 +351,7 @@ const contactData = t("contact") as any;
 
 <script>
     document.addEventListener("DOMContentLoaded", () => {
-        // --- ESTIMATOR LOGIC (Unchanged) ---
+        // --- ESTIMATOR LOGIC ---
         const typeSelect = document.getElementById(
             "project-type",
         ) as HTMLSelectElement;
@@ -322,6 +360,31 @@ const contactData = t("contact") as any;
         ) as HTMLSelectElement;
         const sizeSelect = document.getElementById("size") as HTMLSelectElement;
         const priceDisplay = document.getElementById("price-display");
+        const priceCurrency = document.getElementById("price-currency");
+        const pricePlus = document.getElementById("price-plus");
+
+        // Custom inputs
+        const typeCustom = document.getElementById("project-type-custom");
+        const materialCustom = document.getElementById("material-custom");
+        const sizeCustom = document.getElementById("size-custom");
+
+        function toggleCustomInputs() {
+            if (typeSelect && typeCustom) {
+                typeSelect.value === "Custom"
+                    ? typeCustom.classList.remove("hidden")
+                    : typeCustom.classList.add("hidden");
+            }
+            if (materialSelect && materialCustom) {
+                materialSelect.value === "Custom"
+                    ? materialCustom.classList.remove("hidden")
+                    : materialCustom.classList.add("hidden");
+            }
+            if (sizeSelect && sizeCustom) {
+                sizeSelect.value === "Custom"
+                    ? sizeCustom.classList.remove("hidden")
+                    : sizeCustom.classList.add("hidden");
+            }
+        }
 
         function calculatePrice() {
             if (!typeSelect || !materialSelect || !sizeSelect) return;
@@ -329,6 +392,22 @@ const contactData = t("contact") as any;
             const selectedMaterial =
                 materialSelect.options[materialSelect.selectedIndex];
             const selectedSize = sizeSelect.options[sizeSelect.selectedIndex];
+
+            if (selectedType.value === "Custom") {
+                if (priceDisplay && priceCurrency && pricePlus) {
+                    priceCurrency.style.display = "none";
+                    pricePlus.style.display = "none";
+                    priceDisplay.textContent = "Custom Quote";
+                    priceDisplay.classList.add("text-3xl");
+                }
+                return;
+            }
+
+            if (priceCurrency && pricePlus && priceDisplay) {
+                priceCurrency.style.display = "inline";
+                pricePlus.style.display = "inline";
+                priceDisplay.classList.remove("text-3xl");
+            }
 
             const basePrice = parseFloat(
                 selectedType?.getAttribute("data-base") || "0",
@@ -345,6 +424,7 @@ const contactData = t("contact") as any;
             let start = parseInt(
                 (priceDisplay!.textContent || "0").replace(/,/g, ""),
             );
+            if (isNaN(start)) start = 0;
             const end = Math.round(total);
             const duration = 300;
             const steps = 15;
@@ -368,10 +448,16 @@ const contactData = t("contact") as any;
 
         const inputs = document.querySelectorAll(".estimator-input");
         inputs.forEach((input) => {
-            input.addEventListener("change", calculatePrice);
+            input.addEventListener("change", () => {
+                toggleCustomInputs();
+                calculatePrice();
+            });
         });
 
-        setTimeout(calculatePrice, 50);
+        setTimeout(() => {
+            toggleCustomInputs();
+            calculatePrice();
+        }, 50);
 
         // --- UPDATED FORM SUBMISSION LOGIC ---
         const form = document.getElementById("contact-form") as HTMLFormElement;
@@ -406,10 +492,15 @@ const contactData = t("contact") as any;
 
             const formData = new FormData(form);
 
-            if (priceDisplay) {
+            if (priceDisplay && priceDisplay.textContent !== "Custom Quote") {
                 formData.append(
                     "Calculated Estimate",
                     `€${priceDisplay.textContent}+`,
+                );
+            } else {
+                formData.append(
+                    "Calculated Estimate",
+                    "Custom Quote Requested",
                 );
             }
 
@@ -426,6 +517,7 @@ const contactData = t("contact") as any;
                     // Success State
                     form.reset();
                     formSuccess.classList.remove("hidden");
+                    toggleCustomInputs();
                     calculatePrice();
                 } else {
                     throw new Error("Something went wrong");

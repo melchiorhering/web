@@ -36,6 +36,8 @@
       "sizeLabel": "Geschatte Grootte",
       "estimateLabel": "Geschatte Vanafprijs",
       "disclaimer": "*Dit is een ruwe basisschatting voor materiaal en arbeid. Voor een definitieve offerte is een gedetailleerd overleg nodig.",
+      "customOption": "Anders / Op maat",
+      "customPlaceholder": "Beschrijf je specifieke wensen",
       "projectTypes": [
         {
           "value": "table",
