@@ -1,6 +1,26 @@
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
+    "target": "es2023",
+    "module": "esnext",
+    "lib": ["ES2023", "DOM"],
+    "types": ["vite/client"],
+    "allowArbitraryExtensions": true,
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+
+    /* Linting */
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "erasableSyntaxOnly": true,
+    "noFallthroughCasesInSwitch": true,
+
     "baseUrl": ".",
     "paths": {
       // "@/icons/*": ["src/icons/*"],
@@ -10,9 +30,9 @@
       "@data/*": ["src/data/*"],
       "@sections/*": ["src/sections/*"],
       "@styles/*": ["src/styles/*"],
-      "@i18n/*": ["src/i18n/*"],
-    },
+      "@i18n/*": ["src/i18n/*"]
+    }
   },
   "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist"],
+  "exclude": ["dist"]
 }
